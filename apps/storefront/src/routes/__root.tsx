@@ -15,6 +15,7 @@ import { activeOrderQueryOptions } from "@/hooks/use-active-order";
 import { activeChannelQueryOptions } from "@/hooks/use-catalog-products";
 import { getBaseUrl, getPublicRobotsDirective } from "@/lib/metadata";
 import { saleorNavigationQueryOptions } from "@/lib/saleor/catalog-query";
+import { getActiveChannelAction } from "@/lib/saleor/channel-actions";
 import { getSecurityHeaders } from "@/lib/security";
 import { fetchUser, hasPocSessionCookie } from "@/lib/session";
 import { isSaleorStorefront } from "@/lib/storefront-mode";
@@ -186,13 +187,18 @@ export const Route = createRootRouteWithContext<RouterContext>()({
   loader: async ({ context }) => {
     if (isSaleorStorefront) {
       // Navigation must not make the storefront unavailable if Saleor is slow.
-      const saleorNavigationCategories = await context.queryClient
-        .ensureQueryData(saleorNavigationQueryOptions())
-        .catch(() => []);
+      const [saleorNavigationCategories, initialNtmsChannel] =
+        await Promise.all([
+          context.queryClient
+            .ensureQueryData(saleorNavigationQueryOptions())
+            .catch(() => []),
+          getActiveChannelAction().catch(() => undefined),
+        ]);
       return {
         activeOrder: null,
         activeChannel: undefined,
         saleorNavigationCategories,
+        initialNtmsChannel,
       };
     }
 
@@ -253,14 +259,21 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 });
 
 function RootLayout() {
-  const { activeOrder, activeChannel, saleorNavigationCategories } =
-    Route.useLoaderData();
+  const {
+    activeOrder,
+    activeChannel,
+    saleorNavigationCategories,
+    initialNtmsChannel,
+  } = Route.useLoaderData();
   const { hasSession } = Route.useRouteContext();
 
   if (isSaleorStorefront) {
     return (
       <Suspense fallback={<div className="min-h-screen bg-background" />}>
-        <NtmsSaleorRootLayout categories={saleorNavigationCategories} />
+        <NtmsSaleorRootLayout
+          categories={saleorNavigationCategories}
+          initialChannel={initialNtmsChannel}
+        />
       </Suspense>
     );
   }

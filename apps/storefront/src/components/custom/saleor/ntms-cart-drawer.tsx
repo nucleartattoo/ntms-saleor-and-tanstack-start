@@ -23,6 +23,7 @@ import {
 import type { NtmsSaleorCartLine } from "@/lib/saleor/checkout";
 import { cn } from "@/lib/utils";
 import { useSaleorCart } from "./ntms-cart-context";
+import { useNtmsChannel } from "./ntms-channel-context";
 import { NtmsSaleorPromoCode } from "./ntms-promo-code";
 
 export function NtmsSaleorCartDrawer() {
@@ -36,11 +37,12 @@ export function NtmsSaleorCartDrawer() {
     removeLine,
     updateLine,
   } = useSaleorCart();
+  const { currentChannel } = useNtmsChannel();
   const quantity = checkout?.quantity ?? 0;
   const hasLines = Boolean(checkout && checkout.lines.length > 0);
 
   const subtotalAmount = checkout?.originalSubtotalPrice?.amount ?? 0;
-  const freeShippingThreshold = 150;
+  const freeShippingThreshold = currentChannel.shippingThreshold;
   const amountToFreeShipping = Math.max(
     0,
     freeShippingThreshold - subtotalAmount,
@@ -125,7 +127,8 @@ export function NtmsSaleorCartDrawer() {
                     <span>
                       Add{" "}
                       <strong className="text-[#0071e3]">
-                        ${amountToFreeShipping.toFixed(2)}
+                        {currentChannel.currencySymbol}
+                        {amountToFreeShipping.toFixed(2)}
                       </strong>{" "}
                       for Free Studio Shipping
                     </span>

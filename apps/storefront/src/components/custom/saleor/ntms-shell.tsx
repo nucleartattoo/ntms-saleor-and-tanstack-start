@@ -18,6 +18,11 @@ import {
 import type { NtmsSaleorCategory } from "@/lib/saleor/catalog";
 import { cn } from "@/lib/utils";
 import { useSaleorCart } from "./ntms-cart-context";
+import { useNtmsChannel } from "./ntms-channel-context";
+import {
+  NtmsChannelSwitcher,
+  NtmsMobileChannelSelector,
+} from "./ntms-channel-switcher";
 
 type NtmsNavigationCategory = Pick<NtmsSaleorCategory, "name" | "slug">;
 
@@ -105,14 +110,13 @@ function NtmsSaleorHeader({
 }: {
   categories: ReturnType<typeof getNtmsSaleorNavigationCategories>;
 }) {
+  const { currentChannel } = useNtmsChannel();
+
   return (
     <header className="sticky top-0 z-50 border-b border-black/[0.06] bg-white/80 backdrop-blur-2xl saturate-150 transition-[background-color,backdrop-filter] duration-200">
       {/* 1. Global Announcement / Studio Bar */}
       <div className="border-b border-black/[0.04] bg-[#f5f5f7] px-4 py-1.5 text-center text-[11px] font-medium tracking-tight text-[#6e6e73]">
-        <span>
-          Complimentary priority freight on professional studio orders over
-          $150.
-        </span>
+        <span>{currentChannel.shippingAnnouncement}</span>
         <Link
           to="/search"
           className="ml-2 font-semibold text-[#0071e3] hover:underline"
@@ -195,6 +199,8 @@ function NtmsHeaderActions({
 
   return (
     <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+      <NtmsChannelSwitcher className="hidden sm:inline-flex" />
+
       <NtmsMobileNavigation categories={categories} />
 
       <Link
@@ -303,6 +309,10 @@ function NtmsMobileNavigation({
             </Link>
           ))}
         </nav>
+
+        <div className="mt-auto border-t border-black/[0.06] pt-4">
+          <NtmsMobileChannelSelector />
+        </div>
       </SheetContent>
     </Sheet>
   );

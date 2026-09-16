@@ -1,4 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
+import { getSaleorChannel } from "@/lib/saleor";
 import {
   getNtmsSaleorCatalogPreview,
   getNtmsSaleorCategoryPage,
@@ -20,10 +21,12 @@ const catalogCacheTtl = {
   search: 60_000,
 } as const;
 
-const catalogCacheKey = (scope: string, input?: unknown) =>
-  input === undefined
-    ? `ntms:${scope}`
-    : `ntms:${scope}:${JSON.stringify(input)}`;
+const catalogCacheKey = (scope: string, input?: unknown) => {
+  const channel = getSaleorChannel();
+  return input === undefined
+    ? `ntms:${channel}:${scope}`
+    : `ntms:${channel}:${scope}:${JSON.stringify(input)}`;
+};
 
 export const getSaleorCatalogPreview = createServerFn({ method: "POST" })
   .validator(() => ({}))

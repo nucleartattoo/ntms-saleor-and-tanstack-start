@@ -16,8 +16,8 @@ import {
   removeSaleorCheckoutPromoCode,
   updateSaleorCartLine,
 } from "./ntms-cart-actions";
+import { useNtmsChannel } from "./ntms-channel-context";
 
-const saleorCheckoutStorageKey = "ntms-saleor-checkout-id";
 const saleorCartQueryKey = ["saleor", "cart"] as const;
 
 type SaleorCartContextType = {
@@ -46,6 +46,8 @@ export function SaleorCartProvider({
   children: React.ReactNode;
 }) {
   const queryClient = useQueryClient();
+  const { currentChannel } = useNtmsChannel();
+  const checkoutStorageKey = `ntms-saleor-checkout-id:${currentChannel.slug}`;
   const [checkoutId, setCheckoutId] = useState<string | null>(null);
   const [isHydrated, setIsHydrated] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -64,16 +66,16 @@ export function SaleorCartProvider({
   const checkout = checkoutQuery.data ?? null;
 
   useEffect(() => {
-    setCheckoutId(window.localStorage.getItem(saleorCheckoutStorageKey));
+    setCheckoutId(window.localStorage.getItem(checkoutStorageKey));
     setIsHydrated(true);
-  }, []);
+  }, [checkoutStorageKey]);
 
   useEffect(() => {
     if (isHydrated && checkoutId && checkoutQuery.isError) {
-      window.localStorage.removeItem(saleorCheckoutStorageKey);
+      window.localStorage.removeItem(checkoutStorageKey);
       setCheckoutId(null);
     }
-  }, [checkoutId, checkoutQuery.isError, isHydrated]);
+  }, [checkoutId, checkoutQuery.isError, isHydrated, checkoutStorageKey]);
 
   const syncCheckout = useCallback(
     (nextCheckout: NtmsSaleorCheckout | null) => {
@@ -82,7 +84,7 @@ export function SaleorCartProvider({
       }
 
       if (nextCheckout.lines.length === 0) {
-        window.localStorage.removeItem(saleorCheckoutStorageKey);
+        window.localStorage.removeItem(checkoutStorageKey);
         setCheckoutId(null);
         queryClient.removeQueries({
           queryKey: [...saleorCartQueryKey, nextCheckout.id],
@@ -90,14 +92,14 @@ export function SaleorCartProvider({
         return;
       }
 
-      window.localStorage.setItem(saleorCheckoutStorageKey, nextCheckout.id);
+      window.localStorage.setItem(checkoutStorageKey, nextCheckout.id);
       setCheckoutId(nextCheckout.id);
       queryClient.setQueryData(
         [...saleorCartQueryKey, nextCheckout.id],
         nextCheckout,
       );
     },
-    [queryClient],
+    [queryClient, checkoutStorageKey],
   );
 
   const addLineMutation = useMutation({
@@ -174,10 +176,10 @@ export function SaleorCartProvider({
   });
 
   const clearCartSession = useCallback(() => {
-    window.localStorage.removeItem(saleorCheckoutStorageKey);
+    window.localStorage.removeItem(checkoutStorageKey);
     setCheckoutId(null);
     queryClient.removeQueries({ queryKey: saleorCartQueryKey });
-  }, [queryClient]);
+  }, [queryClient, checkoutStorageKey]);
 
   const value = useMemo<SaleorCartContextType>(
     () => ({

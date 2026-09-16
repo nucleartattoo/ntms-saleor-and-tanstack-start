@@ -20,6 +20,7 @@
     "smoke:navigation": "node scripts/smoke-navigation.mjs",
     "smoke:ntms-saleor-variants": "node scripts/smoke-saleor-variant-catalog.mjs",
     "smoke:ntms-saleor-checkout": "node scripts/smoke-ntms-saleor-checkout.mjs",
+    "smoke:multichannel": "node scripts/smoke-multichannel.mjs",
     "build:image": "docker build -t saleor-ntms-tanstack ."
   },
   "dependencies": {

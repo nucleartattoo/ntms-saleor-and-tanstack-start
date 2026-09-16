@@ -1,5 +1,11 @@
 import { createServerOnlyFn } from "@tanstack/react-start";
+import { getCookie } from "@tanstack/react-start/server";
 import { serverEnv } from "@/env/server";
+import {
+  DEFAULT_SALEOR_CHANNEL,
+  isValidSaleorChannel,
+  SALEOR_CHANNEL_COOKIE,
+} from "./channels";
 
 type SaleorGraphQLError = {
   message?: string;
@@ -15,9 +21,17 @@ const getSaleorEndpoint = createServerOnlyFn(
   () => serverEnv.SALEOR_API_ENDPOINT,
 );
 
-export const getSaleorChannel = createServerOnlyFn(
-  () => serverEnv.SALEOR_CHANNEL,
-);
+export const getSaleorChannel = createServerOnlyFn(() => {
+  try {
+    const cookieChannel = getCookie(SALEOR_CHANNEL_COOKIE);
+    if (cookieChannel && isValidSaleorChannel(cookieChannel)) {
+      return cookieChannel;
+    }
+  } catch {
+    // Outside active request context (e.g. CLI or tests)
+  }
+  return serverEnv.SALEOR_CHANNEL || DEFAULT_SALEOR_CHANNEL;
+});
 
 export const getSaleorRootCategorySlug = createServerOnlyFn(
   () => serverEnv.SALEOR_ROOT_CATEGORY_SLUG,
