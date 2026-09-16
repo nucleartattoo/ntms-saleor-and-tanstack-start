@@ -40,6 +40,7 @@ def setup():
         "manage_users",
         "manage_pages",
         "manage_translations",
+        "manage_apps",  # Required by Saleor Dashboard to load app extensions and sidebar without error
     ]
     manager_perms = list(Permission.objects.filter(codename__in=manager_perm_codenames))
 
