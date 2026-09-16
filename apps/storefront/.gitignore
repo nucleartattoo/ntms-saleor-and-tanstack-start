@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.output/
+.nitro/
+.wrangler/
+.netlify/
+.env
+.env.*
+!.env.example
+coverage/
+playwright-report/
+test-results/
+*.log
+.DS_Store
+

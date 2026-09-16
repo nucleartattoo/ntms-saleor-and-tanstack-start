@@ -1,0 +1,18 @@
+{
+  "short_name": "Nuclear Tattoo Supply",
+  "name": "Nuclear Tattoo Supply",
+  "description": "Professional tattoo supplies, needles, inks, machines, medical essentials, and studio equipment.",
+  "icons": [
+    {
+      "src": "nuclear-favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#0b0b09",
+  "background_color": "#0b0b09",
+  "categories": ["shopping", "business"]
+}

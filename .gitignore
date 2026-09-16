@@ -1,0 +1,58 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Production build & Nitro/Cloudflare outputs
+dist/
+build/
+coverage/
+.output/
+.nitro/
+.wrangler/
+
+# Environment and Secrets (CRITICAL)
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+.jwt_key.pem
+jwt_key.pem
+
+# Python & Virtual Environments
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+
+# Editor & OS files
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Local logs
+*.log
+.logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Claude & Temporary
+.claude/
+*.tmp
+*.bak
+.git_storefront_backup/
+
+# Django media & static uploads
+apps/saleor-core/media/
+apps/saleor-core/static/

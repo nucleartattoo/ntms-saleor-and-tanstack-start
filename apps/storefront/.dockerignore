@@ -1,0 +1,14 @@
+.git
+.cta.json
+.cursorrules
+.vscode
+Claude.md
+.netlify
+dist
+node_modules
+playwright-report
+test-results
+.env
+.env.*
+!.env.example
+npm-debug.log*

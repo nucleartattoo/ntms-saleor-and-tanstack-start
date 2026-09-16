@@ -1,0 +1,17 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "saleor-ntms-tanstack",
+  "compatibility_date": "2025-09-02",
+  "compatibility_flags": ["nodejs_compat"],
+  "main": "@tanstack/react-start/server-entry",
+  "assets": {
+    "directory": "./dist/client",
+    "binding": "ASSETS"
+  },
+  "vars": {
+    "VITE_STOREFRONT_BACKEND": "saleor",
+    "SALEOR_API_ENDPOINT": "https://ntms-saleor.kubernetes.nucleartattoosupply.com/graphql/",
+    "SALEOR_CHANNEL": "default-channel",
+    "VITE_WEBSITE_URL": "https://store.nucleartattoosupply.com"
+  }
+}

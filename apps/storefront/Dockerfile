@@ -1,0 +1,75 @@
+FROM node:22.22.0-bookworm-slim AS deps
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci
+
+FROM node:22.22.0-bookworm-slim AS builder
+WORKDIR /app
+ARG VENDURE_SHOP_API_ENDPOINT=http://localhost:3000/shop-api
+ARG SALEOR_API_ENDPOINT=http://localhost:8000/graphql/
+ARG SALEOR_CHANNEL=default-channel
+ARG SALEOR_ROOT_CATEGORY_SLUG=__root__
+ARG VITE_STOREFRONT_BACKEND=saleor
+ARG VITE_COMPANY_NAME="Nuclear Tattoo Supply"
+ARG VITE_SITE_NAME="Nuclear Tattoo Supply"
+ARG VITE_TWITTER_CREATOR=@example
+ARG VITE_TWITTER_SITE=@example
+ARG VITE_PARENT_ID=1
+ARG VITE_WEBSITE_URL=http://localhost:3010
+ARG VITE_SEARCH_INDEXING=disabled
+ARG STRIPE_PUBLIC_VALUE_VERSION=""
+ARG VITE_APP_BUILD_VERSION=dev
+ARG APP_SERVICE_NAME=saleor-ntms-tanstack
+ENV NODE_ENV=production
+ENV VENDURE_SHOP_API_ENDPOINT=${VENDURE_SHOP_API_ENDPOINT}
+ENV SALEOR_API_ENDPOINT=${SALEOR_API_ENDPOINT}
+ENV SALEOR_CHANNEL=${SALEOR_CHANNEL}
+ENV SALEOR_ROOT_CATEGORY_SLUG=${SALEOR_ROOT_CATEGORY_SLUG}
+ENV VITE_STOREFRONT_BACKEND=${VITE_STOREFRONT_BACKEND}
+ENV VITE_COMPANY_NAME=${VITE_COMPANY_NAME}
+ENV VITE_SITE_NAME=${VITE_SITE_NAME}
+ENV VITE_TWITTER_CREATOR=${VITE_TWITTER_CREATOR}
+ENV VITE_TWITTER_SITE=${VITE_TWITTER_SITE}
+ENV VITE_PARENT_ID=${VITE_PARENT_ID}
+ENV VITE_WEBSITE_URL=${VITE_WEBSITE_URL}
+ENV VITE_SEARCH_INDEXING=${VITE_SEARCH_INDEXING}
+ENV VITE_APP_BUILD_VERSION=${VITE_APP_BUILD_VERSION}
+ENV APP_SERVICE_NAME=${APP_SERVICE_NAME}
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+RUN --mount=type=secret,id=stripe_public_value,required=false \
+  : "${STRIPE_PUBLIC_VALUE_VERSION}" && \
+  stripe_public_value="$(cat /run/secrets/stripe_public_value 2>/dev/null || true)" && \
+  printf 'VITE_STRIPE_PUBLISHABLE_KEY=%s\n' "${stripe_public_value}" > .env.production.local && \
+  npm run build
+
+FROM node:22.22.0-bookworm-slim AS runner
+WORKDIR /app
+ARG VENDURE_SHOP_API_ENDPOINT=http://localhost:3000/shop-api
+ARG SALEOR_API_ENDPOINT=http://localhost:8000/graphql/
+ARG SALEOR_CHANNEL=default-channel
+ARG SALEOR_ROOT_CATEGORY_SLUG=__root__
+ARG VITE_STOREFRONT_BACKEND=saleor
+ARG VITE_WEBSITE_URL=http://localhost:3010
+ARG VITE_SEARCH_INDEXING=disabled
+ARG VITE_APP_BUILD_VERSION=dev
+ARG APP_SERVICE_NAME=saleor-ntms-tanstack
+ENV NODE_ENV=production
+ENV PORT=3010
+ENV VENDURE_SHOP_API_ENDPOINT=${VENDURE_SHOP_API_ENDPOINT}
+ENV SALEOR_API_ENDPOINT=${SALEOR_API_ENDPOINT}
+ENV SALEOR_CHANNEL=${SALEOR_CHANNEL}
+ENV SALEOR_ROOT_CATEGORY_SLUG=${SALEOR_ROOT_CATEGORY_SLUG}
+ENV VITE_STOREFRONT_BACKEND=${VITE_STOREFRONT_BACKEND}
+ENV VITE_WEBSITE_URL=${VITE_WEBSITE_URL}
+ENV VITE_SEARCH_INDEXING=${VITE_SEARCH_INDEXING}
+ENV VITE_APP_BUILD_VERSION=${VITE_APP_BUILD_VERSION}
+ENV APP_SERVICE_NAME=${APP_SERVICE_NAME}
+COPY --from=builder --chown=node:node /app/dist ./dist
+COPY --from=builder --chown=node:node /app/public ./public
+COPY --from=builder --chown=node:node /app/server.js ./server.js
+COPY --from=builder --chown=node:node /app/package.json ./package.json
+COPY --from=deps --chown=node:node /app/node_modules ./node_modules
+USER node
+EXPOSE 3010
+CMD ["node", "server.js"]
