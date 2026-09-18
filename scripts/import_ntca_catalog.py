@@ -375,6 +375,14 @@ def run_import():
                             # Normalize path: /0/0/002.jpg -> products/ntca/0/0/002.jpg
                             clean_img_path = img_path.lstrip("/")
                             media_rel_path = f"products/ntca/{clean_img_path}"
+                            # Django ImageField default max_length is 100 characters
+                            if len(media_rel_path) > 100:
+                                base, ext = os.path.splitext(clean_img_path)
+                                allowed_base_len = 100 - len("products/ntca/") - len(ext)
+                                if allowed_base_len > 0:
+                                    media_rel_path = f"products/ntca/{base[:allowed_base_len]}{ext}"
+                                else:
+                                    media_rel_path = media_rel_path[:100]
                             new_medias.append(
                                 ProductMedia(
                                     product=new_product,

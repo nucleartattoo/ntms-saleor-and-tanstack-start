@@ -56,3 +56,6 @@ pnpm-debug.log*
 # Django media & static uploads
 apps/saleor-core/media/
 apps/saleor-core/static/
+
+# Docker volumes
+docker/volumes/

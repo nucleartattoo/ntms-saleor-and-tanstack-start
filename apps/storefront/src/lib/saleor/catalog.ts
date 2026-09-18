@@ -892,7 +892,12 @@ export async function getNtmsSaleorNavigationCategories(): Promise<
 
   return (data.categories?.edges ?? [])
     .map((edge) => mapCategory(edge.node))
-    .filter((category) => category.slug !== "default-category");
+    .filter(
+      (category) =>
+        category.slug !== "default-category" &&
+        !category.slug.startsWith("ntca-") &&
+        category.productCount > 0,
+    );
 }
 
 export async function getNtmsSaleorCategoryPage(
@@ -1103,13 +1108,32 @@ export async function getNtmsSaleorProductPage(
   slug: string,
 ): Promise<NtmsSaleorProductPage | null> {
   const channel = getSaleorChannel();
-  const data = await saleorFetch<
+  let activeChannel = channel;
+  let data = await saleorFetch<
     NtmsSaleorProductPageResponse,
     { channel: string; slug: string }
   >({
     query: ntmsSaleorProductPageQuery,
-    variables: { channel, slug },
+    variables: { channel: activeChannel, slug },
   });
+
+  // 跨渠道智能防 404 兜底机制：
+  // 若当前渠道未上架该商品（如区域特供商品），自动探测备用渠道，避免直访或切站时直接报 404
+  if (!data.product) {
+    const alternateChannel =
+      channel === "default-channel" ? "canada" : "default-channel";
+    const fallbackData = await saleorFetch<
+      NtmsSaleorProductPageResponse,
+      { channel: string; slug: string }
+    >({
+      query: ntmsSaleorProductPageQuery,
+      variables: { channel: alternateChannel, slug },
+    });
+    if (fallbackData.product) {
+      data = fallbackData;
+      activeChannel = alternateChannel;
+    }
+  }
 
   if (!data.product) {
     return null;
@@ -1122,7 +1146,7 @@ export async function getNtmsSaleorProductPage(
     .slice(0, 8);
 
   return {
-    channel,
+    channel: activeChannel,
     product: {
       ...mapProduct(product),
       description: parseSaleorDescription(product.description),

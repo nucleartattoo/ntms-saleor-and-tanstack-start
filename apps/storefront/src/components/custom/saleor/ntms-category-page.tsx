@@ -1,8 +1,9 @@
 import { Link } from "@tanstack/react-router";
-import { ChevronLeft, ChevronRight, SearchX } from "lucide-react";
+import { ChevronLeft, ChevronRight, Layers, SearchX } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { type SortFilterItem, sorting } from "@/lib/constants";
 import type { NtmsSaleorCategoryPage } from "@/lib/saleor/catalog";
+import { cn } from "@/lib/utils";
 import { SaleorProductCard } from "./ntms-catalog-page";
 
 export function NtmsSaleorCategoryPageView({
@@ -15,7 +16,6 @@ export function NtmsSaleorCategoryPageView({
     children,
     hasNextPage,
     hasPreviousPage,
-    isCollectionOnly,
     nextPageCursor,
     page: currentPage,
     pageSize,
@@ -29,76 +29,27 @@ export function NtmsSaleorCategoryPageView({
 
   return (
     <main className="min-h-screen bg-[#fbfbfd] text-[#1d1d1f] antialiased">
-      {/* 1. Header & Breadcrumbs in Apple Light Style */}
+      {/* 1. Header in Pure Apple Style - Title Only & Ribbon */}
       <header className="border-b border-black/[0.04] bg-white">
-        <div className="mx-auto max-w-7xl px-4 py-3.5 sm:px-6 lg:px-8">
-          <nav
-            aria-label="Breadcrumb"
-            className="flex min-w-0 items-center gap-2 text-[11px] font-medium tracking-tight text-[#86868b]"
-          >
-            <Link to="/" className="shrink-0 transition hover:text-[#0071e3]">
-              Store
-            </Link>
-            <ChevronRight className="h-3 w-3 shrink-0 text-[#86868b]" />
-            <span className="min-w-0 truncate text-[#1d1d1f] font-semibold">
-              {category.name}
-            </span>
-          </nav>
-        </div>
+        <div className="mx-auto max-w-7xl px-4 pt-10 pb-6 sm:px-6 lg:px-8">
+          <h1 className="text-4xl font-extrabold tracking-tight text-[#1d1d1f] sm:text-6xl">
+            {category.name}
+          </h1>
 
-        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-            <div className="max-w-2xl">
-              <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#0071e3]">
-                {isCollectionOnly ? "Curated Series" : "Hardware & Consumables"}
-              </p>
-              <h1 className="mt-3 text-4xl font-extrabold tracking-tight text-[#1d1d1f] sm:text-6xl">
-                {category.name}
-              </h1>
-              <p className="mt-4 text-base leading-relaxed text-[#6e6e73] sm:text-lg">
-                Engineered for master tattooists, clinical PMU technicians, and
-                high-volume piercing studios.
-              </p>
-            </div>
-
-            <div className="inline-flex items-center gap-6 rounded-2xl bg-[#f5f5f7] px-6 py-3.5 shadow-sm">
-              <div className="flex flex-col">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-[#86868b]">
-                  Available Items
-                </span>
-                <span className="text-lg font-extrabold text-[#1d1d1f]">
-                  {totalProducts.toLocaleString()}
-                </span>
-              </div>
-              <div className="h-7 w-[1px] bg-black/[0.08]" />
-              <div className="flex flex-col">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-[#86868b]">
-                  Subcategories
-                </span>
-                <span className="text-lg font-extrabold text-[#1d1d1f]">
-                  {children.length.toLocaleString()}
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* Subcategories Pill Bar */}
+          {/* Apple Store-Styled Subcategory Ribbon */}
           {children.length > 0 ? (
-            <div className="mt-8 flex items-center gap-2 overflow-x-auto pb-2">
-              <CollectionNavLink
-                active
-                collection={category.slug}
-                label="All"
-                sort={sort}
-              />
-              {children.map((child) => (
-                <CollectionNavLink
-                  collection={child.slug}
-                  key={child.id}
-                  label={child.name}
-                  sort={sort}
-                />
-              ))}
+            <div className="mt-8 pt-4">
+              <div className="flex items-center justify-start sm:justify-center gap-6 sm:gap-10 overflow-x-auto pb-4 no-scrollbar">
+                {children.map((child) => (
+                  <AppleCategorySubnavItem
+                    collection={child.slug}
+                    key={child.id}
+                    label={child.name}
+                    sort={sort}
+                    imageUrl={child.imageUrl}
+                  />
+                ))}
+              </div>
             </div>
           ) : null}
         </div>
@@ -178,16 +129,18 @@ export function NtmsSaleorCategoryPageView({
   );
 }
 
-function CollectionNavLink({
+function AppleCategorySubnavItem({
   active = false,
   collection,
   label,
   sort,
+  imageUrl,
 }: {
   active?: boolean;
   collection: string;
   label: string;
   sort: SortFilterItem["slug"];
+  imageUrl?: string | null;
 }) {
   return (
     <Link
@@ -195,15 +148,46 @@ function CollectionNavLink({
       params={{ collection }}
       search={{ sort }}
       preload="intent"
-      className={[
-        "shrink-0 rounded-full px-4 py-1.5 text-xs font-semibold tracking-tight transition-all duration-300",
-        active
-          ? "bg-[#1d1d1f] text-white shadow-sm"
-          : "bg-[#f5f5f7] text-[#1d1d1f] hover:bg-[#e8e8ed]",
-      ].join(" ")}
+      className="group flex shrink-0 flex-col items-center gap-2 outline-none"
       aria-current={active ? "page" : undefined}
     >
-      {label}
+      <div
+        className={cn(
+          "flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-2xl p-2 transition-all duration-300 group-hover:scale-105",
+          active
+            ? "bg-[#0071e3]/10 ring-2 ring-[#0071e3] shadow-sm"
+            : "bg-[#f5f5f7] ring-1 ring-black/[0.04] group-hover:bg-[#e8e8ed]",
+        )}
+      >
+        {imageUrl ? (
+          <img
+            src={imageUrl}
+            alt={label}
+            className="h-full w-full object-contain"
+            loading="lazy"
+          />
+        ) : (
+          <Layers
+            className={cn(
+              "h-6 w-6 transition-colors",
+              active
+                ? "text-[#0071e3]"
+                : "text-[#1d1d1f]/60 group-hover:text-[#1d1d1f]",
+            )}
+          />
+        )}
+      </div>
+      <span
+        className={cn(
+          "text-[11px] tracking-tight transition-colors text-center max-w-[84px] truncate",
+          active
+            ? "font-semibold text-[#0071e3]"
+            : "font-medium text-[#1d1d1f]/80 group-hover:text-[#0071e3]",
+        )}
+      >
+        {label}
+      </span>
+      {active && <span className="h-1 w-1 rounded-full bg-[#0071e3] -mt-1" />}
     </Link>
   );
 }
