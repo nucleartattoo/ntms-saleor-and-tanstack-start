@@ -153,10 +153,10 @@ function AppleCategorySubnavItem({
     >
       <div
         className={cn(
-          "flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-2xl p-2 transition-all duration-300 group-hover:scale-105",
+          "flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center bg-transparent transition-all duration-300 group-hover:scale-105",
           active
-            ? "bg-[#0071e3]/10 ring-2 ring-[#0071e3] shadow-sm"
-            : "bg-[#f5f5f7] ring-1 ring-black/[0.04] group-hover:bg-[#e8e8ed]",
+            ? "scale-105 opacity-100"
+            : "opacity-85 group-hover:opacity-100",
         )}
       >
         {imageUrl ? (

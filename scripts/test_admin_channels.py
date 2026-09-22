@@ -1,8 +1,11 @@
+import os
 import urllib.request
 import urllib.error
 import json
 
-GRAPHQL_URL = "http://localhost:8003/graphql/"
+GRAPHQL_URL = os.environ.get("SALEOR_GRAPHQL_URL", "http://localhost:8003/graphql/")
+DEFAULT_STAFF_PASSWORD = os.environ.get("STAFF_PASSWORD", "Admin123456!")
+DEFAULT_ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "NTMS2026!")
 
 def graphql_request(query, variables=None, token=None):
     headers = {"Content-Type": "application/json"}
@@ -77,9 +80,9 @@ def get_orders(token):
 
 def test_accounts():
     users = [
-        ("canada-admin@nucleartattoosupply.com", "Admin123456!", "Canada Store Manager"),
-        ("us-admin@nucleartattoosupply.com", "Admin123456!", "US Store Manager"),
-        ("admin@nucleartattoosupply.com", "Admin123456!", "Global SuperAdmin"),
+        ("canada-admin@nucleartattoosupply.com", DEFAULT_STAFF_PASSWORD, "Canada Store Manager"),
+        ("us-admin@nucleartattoosupply.com", DEFAULT_STAFF_PASSWORD, "US Store Manager"),
+        ("admin@nucleartattoosupply.com", DEFAULT_ADMIN_PASSWORD, "Global SuperAdmin"),
     ]
 
     print("\n🔍 Verifying Multi-Channel Admin Account Logins & Access Boundaries:")

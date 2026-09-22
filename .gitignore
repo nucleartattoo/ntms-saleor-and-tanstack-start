@@ -59,3 +59,7 @@ apps/saleor-core/static/
 
 # Docker volumes
 docker/volumes/
+
+# Legacy One-off Migration & Audit Scripts (Keep offline, do not commit)
+scripts/*zoey*
+scripts/audit_*
