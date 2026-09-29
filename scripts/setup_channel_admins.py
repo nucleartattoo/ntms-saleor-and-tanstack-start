@@ -21,13 +21,15 @@ def setup():
     # 1. Fetch Channels
     us_channel = Channel.objects.filter(slug="default-channel").first()
     ca_channel = Channel.objects.filter(slug="canada").first()
+    hawk_channel = Channel.objects.filter(slug="hawk").first()
 
-    if not us_channel or not ca_channel:
+    if not us_channel or not ca_channel or not hawk_channel:
         print("❌ Error: Missing channels in database!")
         return
 
     print(f"  Found US Channel: id={us_channel.id}, slug={us_channel.slug}")
     print(f"  Found Canada Channel: id={ca_channel.id}, slug={ca_channel.slug}")
+    print(f"  Found Hawk Channel: id={hawk_channel.id}, slug={hawk_channel.slug}")
 
     # Standard Store Manager permissions
     manager_perm_codenames = [
@@ -60,7 +62,15 @@ def setup():
     us_group.save()
     print(f"  ✅ Configured 'US Store Managers' group (restricted to US channel)")
 
-    # 4. Configure Full Access Group (Unrestricted)
+    # 4. Configure Hawk Store Managers Group
+    hawk_group, _ = Group.objects.get_or_create(name="Hawk Store Managers")
+    hawk_group.permissions.set(manager_perms)
+    hawk_group.channels.set([hawk_channel])
+    hawk_group.restricted_access_to_channels = True
+    hawk_group.save()
+    print(f"  ✅ Configured 'Hawk Store Managers' group (restricted to Hawk channel)")
+
+    # 5. Configure Full Access Group (Unrestricted)
     full_group, _ = Group.objects.get_or_create(name="Full Access")
     all_perms = list(Permission.objects.all())
     full_group.permissions.set(all_perms)
@@ -117,7 +127,31 @@ def setup():
     us_user.groups.set([us_group])
     print(f"  ✅ {'Created' if us_created else 'Updated'} US Admin: {us_email}")
 
-    # 7. Ensure Global SuperAdmin (Full Access)
+    # 7. Create / Update Hawk Admin
+    hawk_email = "hawk-admin@hawktattoosupply.com"
+    hawk_user, hawk_created = User.objects.get_or_create(
+        email=hawk_email,
+        defaults={
+            "first_name": "Hawk",
+            "last_name": "Manager",
+            "is_staff": True,
+            "is_superuser": False,
+            "is_active": True,
+            "is_confirmed": True,
+        }
+    )
+    hawk_user.first_name = "Hawk"
+    hawk_user.last_name = "Manager"
+    hawk_user.is_staff = True
+    hawk_user.is_superuser = False  # Crucial: superusers bypass channel restrictions!
+    hawk_user.is_active = True
+    hawk_user.is_confirmed = True
+    hawk_user.set_password(DEFAULT_PASSWORD)
+    hawk_user.save()
+    hawk_user.groups.set([hawk_group])
+    print(f"  ✅ {'Created' if hawk_created else 'Updated'} Hawk Admin: {hawk_email}")
+
+    # 8. Ensure Global SuperAdmin (Full Access)
     root_email = "admin@nucleartattoosupply.com"
     root_user, root_created = User.objects.get_or_create(
         email=root_email,

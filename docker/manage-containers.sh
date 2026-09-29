@@ -37,11 +37,11 @@ start_containers() {
     echo "✅ ntms-postgres 容器已在运行中"
   fi
 
-  # 2. Redis (Port 6381:6379) - 持久化挂载至外挂磁盘
+  # 2. Redis (Port 6381:6379) - 持久化挂载至命名卷
   if ! "$CONTAINER_BIN" list -a | grep -q ntms-redis; then
-    echo "📦 正在拉起 ntms-redis (6381:6379) [外挂盘持久化]..."
+    echo "📦 正在拉起 ntms-redis (6381:6379) [命名卷持久化]..."
     "$CONTAINER_BIN" run -d --name ntms-redis -p 6381:6379 \
-      -v "$REDIS_DATA_DIR:/data" \
+      -v ntms-redis-data:/data \
       redis:7-alpine redis-server --appendonly yes || true
   elif ! "$CONTAINER_BIN" list | grep -q ntms-redis; then
     echo "🔄 正在启动现有 ntms-redis 容器..."
