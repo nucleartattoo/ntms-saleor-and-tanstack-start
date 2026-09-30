@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { ChevronLeft, ChevronRight, Layers, SearchX } from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { type SortFilterItem, sorting } from "@/lib/constants";
 import type { NtmsSaleorCategoryPage } from "@/lib/saleor/catalog";
@@ -38,19 +39,7 @@ export function NtmsSaleorCategoryPageView({
 
           {/* Apple Store-Styled Subcategory Ribbon */}
           {children.length > 0 ? (
-            <div className="mt-8 pt-4">
-              <div className="flex items-center justify-start sm:justify-center gap-6 sm:gap-10 overflow-x-auto pb-4 no-scrollbar">
-                {children.map((child) => (
-                  <AppleCategorySubnavItem
-                    collection={child.slug}
-                    key={child.id}
-                    label={child.name}
-                    sort={sort}
-                    imageUrl={child.imageUrl}
-                  />
-                ))}
-              </div>
-            </div>
+            <AppleSubnavRibbon children={children} sort={sort} />
           ) : null}
         </div>
       </header>
@@ -126,6 +115,109 @@ export function NtmsSaleorCategoryPageView({
         )}
       </section>
     </main>
+  );
+}
+
+function AppleSubnavRibbon({
+  children,
+  sort,
+}: {
+  children: NtmsSaleorCategoryPage["children"];
+  sort: SortFilterItem["slug"];
+}) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+
+  const checkScroll = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const { scrollLeft, scrollWidth, clientWidth } = el;
+    setCanScrollLeft(scrollLeft > 4);
+    setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 4);
+  }, []);
+
+  useEffect(() => {
+    checkScroll();
+    const el = scrollRef.current;
+    if (!el) return;
+    el.addEventListener("scroll", checkScroll, { passive: true });
+    window.addEventListener("resize", checkScroll);
+    return () => {
+      el.removeEventListener("scroll", checkScroll);
+      window.removeEventListener("resize", checkScroll);
+    };
+  }, [checkScroll, children]);
+
+  const scrollByAmount = (offset: number) => {
+    const el = scrollRef.current;
+    if (!el) return;
+    el.scrollBy({ left: offset, behavior: "smooth" });
+  };
+
+  const isOverflowing = canScrollLeft || canScrollRight;
+
+  return (
+    <div className="relative mt-8 pt-4">
+      {/* Left Gradient Fade Mask & Floating Arrow */}
+      <div
+        className={cn(
+          "pointer-events-none absolute left-0 inset-y-0 z-20 flex items-center pr-10 pl-1 bg-gradient-to-r from-white via-white/90 to-transparent transition-opacity duration-300",
+          canScrollLeft ? "opacity-100" : "opacity-0",
+        )}
+      >
+        <button
+          type="button"
+          aria-label="Previous categories"
+          onClick={() => scrollByAmount(-320)}
+          className={cn(
+            "flex h-9 w-9 items-center justify-center rounded-full border border-black/10 bg-white/90 text-[#1d1d1f] shadow-[0_4px_16px_rgba(0,0,0,0.08)] backdrop-blur-md transition-all hover:bg-white hover:scale-105 active:scale-95",
+            canScrollLeft ? "pointer-events-auto" : "pointer-events-none",
+          )}
+        >
+          <ChevronLeft className="h-4 w-4" />
+        </button>
+      </div>
+
+      {/* Main Smooth Scroll Ribbon Track */}
+      <div
+        ref={scrollRef}
+        className={cn(
+          "flex items-center gap-6 sm:gap-9 overflow-x-auto pb-4 pt-1 scroll-smooth no-scrollbar",
+          isOverflowing ? "justify-start px-4 sm:px-8" : "justify-center px-4",
+        )}
+      >
+        {children.map((child) => (
+          <AppleCategorySubnavItem
+            collection={child.slug}
+            key={child.id}
+            label={child.name}
+            sort={sort}
+            imageUrl={child.imageUrl}
+          />
+        ))}
+      </div>
+
+      {/* Right Gradient Fade Mask & Floating Arrow */}
+      <div
+        className={cn(
+          "pointer-events-none absolute right-0 inset-y-0 z-20 flex items-center pl-10 pr-1 bg-gradient-to-l from-white via-white/90 to-transparent transition-opacity duration-300",
+          canScrollRight ? "opacity-100" : "opacity-0",
+        )}
+      >
+        <button
+          type="button"
+          aria-label="Next categories"
+          onClick={() => scrollByAmount(320)}
+          className={cn(
+            "flex h-9 w-9 items-center justify-center rounded-full border border-black/10 bg-white/90 text-[#1d1d1f] shadow-[0_4px_16px_rgba(0,0,0,0.08)] backdrop-blur-md transition-all hover:bg-white hover:scale-105 active:scale-95",
+            canScrollRight ? "pointer-events-auto" : "pointer-events-none",
+          )}
+        >
+          <ChevronRight className="h-4 w-4" />
+        </button>
+      </div>
+    </div>
   );
 }
 

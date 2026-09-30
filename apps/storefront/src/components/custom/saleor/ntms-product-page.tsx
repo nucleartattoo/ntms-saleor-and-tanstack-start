@@ -29,6 +29,7 @@ import {
   getPreferredSaleorVariant,
   getSaleorVariantAttributeGroups,
   isSaleorColorAttribute,
+  isSaleorVariantAvailable,
   NtmsSaleorVariantSelector,
 } from "./ntms-variant-selector";
 
@@ -386,10 +387,14 @@ export function NtmsSaleorProductPageView({
   const hasVariantSearch =
     shouldSearchSaleorProductVariants(product.variants.length) &&
     !hasAttributeSelector;
-  const visibleVariants = useMemo(
-    () => filterSaleorProductVariants(product.variants, variantSearchQuery),
-    [product.variants, variantSearchQuery],
-  );
+  const visibleVariants = useMemo(() => {
+    const filtered = filterSaleorProductVariants(
+      product.variants,
+      variantSearchQuery,
+    );
+    const inStock = filtered.filter(isSaleorVariantAvailable);
+    return inStock.length > 0 ? inStock : filtered;
+  }, [product.variants, variantSearchQuery]);
   const selectedConfiguration = useMemo(() => {
     return variantAttributeGroups.flatMap((group) => {
       const selectedValue = selectedVariant?.attributes
@@ -522,7 +527,7 @@ export function NtmsSaleorProductPageView({
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <section className="grid gap-12 lg:grid-cols-12 lg:items-start">
           {/* Main Stage Gallery (Left 7 Cols) */}
-          <div className="lg:col-span-7 lg:sticky lg:top-24">
+          <div className="lg:col-span-7 lg:sticky lg:top-24 min-w-0">
             <div className="relative flex items-center justify-center min-h-[420px] sm:min-h-[540px] py-4">
               <button
                 aria-label="Open image viewer"
@@ -586,9 +591,9 @@ export function NtmsSaleorProductPageView({
               ) : null}
             </div>
 
-            {/* Thumbnail Strip */}
+            {/* Thumbnail Strip: Responsive Wrapped Studio Grid */}
             {activeGallery.length > 1 ? (
-              <fieldset className="mt-6 flex w-full items-center justify-center gap-3 overflow-x-auto py-2.5 px-2">
+              <fieldset className="mt-6 flex w-full flex-wrap items-center justify-center gap-2.5 sm:gap-3 py-2 px-1 max-w-xl mx-auto">
                 <legend className="sr-only">Product images</legend>
                 {activeGallery.map((media, index) => {
                   const active = media.url === selectedImage;
@@ -598,10 +603,10 @@ export function NtmsSaleorProductPageView({
                       aria-label={`Show image ${index + 1} of ${activeGallery.length}`}
                       aria-pressed={active}
                       className={cn(
-                        "group relative flex h-16 w-16 sm:h-[72px] sm:w-[72px] shrink-0 items-center justify-center rounded-2xl bg-white p-2 transition-all duration-200 ease-out motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0071e3]",
+                        "group relative flex h-14 w-14 sm:h-16 sm:w-16 shrink-0 items-center justify-center rounded-2xl bg-white p-1.5 transition-all duration-200 ease-out motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0071e3]",
                         active
-                          ? "border-2 border-[#0071e3] shadow-[0_4px_16px_rgba(0,113,227,0.18)] opacity-100"
-                          : "border-2 border-black/[0.06] opacity-60 hover:opacity-100 hover:border-black/20 shadow-[0_1px_4px_rgba(0,0,0,0.02)]",
+                          ? "border-2 border-[#0071e3] shadow-[0_4px_16px_rgba(0,113,227,0.22)] opacity-100 scale-105 z-10"
+                          : "border border-black/[0.08] opacity-70 hover:opacity-100 hover:border-black/25 shadow-[0_1px_4px_rgba(0,0,0,0.02)] hover:scale-105",
                       )}
                       key={media.url}
                       onClick={() => setSelectedMediaUrl(media.url)}
@@ -609,12 +614,12 @@ export function NtmsSaleorProductPageView({
                     >
                       <img
                         alt=""
-                        className="h-full w-full object-contain mix-blend-multiply transition-transform duration-200 group-hover:scale-105"
+                        className="h-full w-full object-contain mix-blend-multiply transition-transform duration-200"
                         decoding="async"
-                        height={64}
+                        height={56}
                         loading="lazy"
                         src={media.url}
-                        width={64}
+                        width={56}
                       />
                     </button>
                   );
@@ -624,7 +629,7 @@ export function NtmsSaleorProductPageView({
           </div>
 
           {/* Product Purchase & Spec Column (Right 5 Cols) */}
-          <aside className="lg:col-span-5 flex flex-col gap-6">
+          <aside className="lg:col-span-5 flex flex-col gap-6 min-w-0">
             <div className="rounded-[2.5rem] border border-black/[0.04] bg-white p-8 shadow-[0_4px_30px_rgba(0,0,0,0.04)] sm:p-10">
               {product.category ? (
                 <Link

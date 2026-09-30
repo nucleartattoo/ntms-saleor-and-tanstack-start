@@ -47,68 +47,64 @@ interface CinemaSlide {
 
 const CINEMA_SLIDES: CinemaSlide[] = [
   {
-    id: "machines",
+    id: "kwadron",
     theme: "dark",
-    tag: "Rotary Machines",
-    badge: "Titanium Series",
-    headline: "Titanium Power. Zero Vibration.",
-    subhead: "Master Sessions",
-    lead: "Aerospace titanium chassis with zero-tolerance German coreless drive.",
-    cta: "Shop Machines",
-    href: "/collections/$collection",
-    params: { collection: "ntms-103-machines" },
-    image:
-      "https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?auto=format&fit=crop&w=1600&q=85",
-    imageAlt: "Nuclear Tattoo Pro Titanium Rotary Machine",
-    specs: ["German 12V Drive", "Billet Titanium"],
-  },
-  {
-    id: "needles",
-    theme: "light",
-    tag: "Cartridges",
-    badge: "Medical 316L",
-    headline: "Surgical Precision. Pure Ink Flow.",
-    subhead: "Sterile Cartridges",
-    lead: "316L surgical steel with responsive anti-backflow silicone membrane.",
-    cta: "Shop Needles",
+    tag: "Kwadron",
+    badge: "Needles",
+    headline: "Kwadron Cartridges",
+    subhead: "Professional Series",
+    lead: "Industry-leading needle stabilization system.",
+    cta: "Shop Now",
     href: "/collections/$collection",
     params: { collection: "ntms-289-needles" },
-    image:
-      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1600&q=85",
-    imageAlt: "Precision Sterile Cartridge Needles",
+    image: "/sliders/kwadron.png",
+    imageAlt: "Kwadron Tattoo Needles and Cartridges",
+    specs: ["316L Surgical Steel", "Medical Grade Housing"],
+  },
+  {
+    id: "fk-irons",
+    theme: "dark",
+    tag: "FK Irons",
+    badge: "Machines",
+    headline: "FK Irons Machine Sale",
+    subhead: "Direct Drive Power",
+    lead: "Exclusive promotional pricing on flagship rotary and wireless machines.",
+    cta: "Shop Now",
+    href: "/collections/$collection",
+    params: { collection: "ntms-103-machines" },
+    image: "/sliders/fk-irons-sale.png",
+    imageAlt: "FK Irons Tattoo Machine Promotion",
+    specs: ["Aircraft Grade Aluminum", "Zero Maintenance"],
+  },
+  {
+    id: "papa",
+    theme: "dark",
+    tag: "PAPA Deal",
+    badge: "Buy 5 Get 1",
+    headline: "PAPA Cartridges Buy 5 Get 1",
+    subhead: "High Elasticity Membrane",
+    lead: "Stock up on professional sterile cartridge needles.",
+    cta: "Shop Now",
+    href: "/collections/$collection",
+    params: { collection: "ntms-117-papa" },
+    image: "/sliders/papa-buy-5-get-1.png",
+    imageAlt: "PAPA Cartridge Needles Buy 5 Get 1 Free Promotion",
     specs: ["Anti-Backflow Membrane", "EO Gas Sterile"],
   },
   {
-    id: "inks",
-    theme: "vibrant",
-    tag: "Pigments",
-    badge: "Ultra-Concentrated",
-    headline: "Vibrant Saturation. Unyielding Depth.",
-    subhead: "Master Palettes",
-    lead: "Micro-dispersed formulations for swift dermal deposit and lasting richness.",
-    cta: "Shop Inks",
+    id: "black-label",
+    theme: "dark",
+    tag: "Black Label",
+    badge: "Gloves",
+    headline: "Black Label Medical Gloves",
+    subhead: "Medical Supplies",
+    lead: "Superior tactile sensitivity and tear-resistant medical-grade protection.",
+    cta: "Shop Now",
     href: "/collections/$collection",
-    params: { collection: "ntms-91-inks" },
-    image:
-      "https://images.unsplash.com/photo-1611095973763-414019e72400?auto=format&fit=crop&w=1600&q=85",
-    imageAlt: "High Chroma Tattoo Pigment Formulation",
-    specs: ["Heavy-Metal Free", "Micro-Dispersed"],
-  },
-  {
-    id: "power",
-    theme: "slate",
-    tag: "Power Systems",
-    badge: "Digital Wireless",
-    headline: "Untethered Voltage. Absolute Control.",
-    subhead: "Wireless Duty",
-    lead: "Instant jump-start output with granular 0.1V step telemetry.",
-    cta: "Shop Power",
-    href: "/collections/$collection",
-    params: { collection: "ntms-85-power-supplies-and-cords" },
-    image:
-      "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1600&q=85",
-    imageAlt: "Wireless Digital Tattoo Battery Pack",
-    specs: ["0.1V Increments", "USB-C Quick-Charge"],
+    params: { collection: "ntms-89-medical" },
+    image: "/sliders/black-label-gloves.jpg",
+    imageAlt: "Black Label Tattoo Examination Gloves",
+    specs: ["Latex & Nitrile", "Textured Grip"],
   },
 ];
 
@@ -714,118 +710,82 @@ function AppleCinemaHero({ enableLinks = false }: { enableLinks?: boolean }) {
 
   return (
     <section
-      aria-label="Studio Hardware Showcases"
-      className="relative isolate overflow-hidden bg-[#000000] text-white transition-colors duration-1000"
+      aria-label="Studio Highlights"
+      className="relative isolate overflow-hidden bg-[#000000] text-white"
     >
-      {/* Dynamic Slide Background Container with Apple Cinema Backdrop */}
-      <div className="relative min-h-[580px] sm:min-h-[640px] lg:min-h-[720px] xl:min-h-[760px] flex items-center">
-        {/* Background Image / Ambient Cinema Lighting */}
+      {/* Dynamic Slide Banner Container - Pure, Unmasked Visual Presentation */}
+      <div className="group relative w-full aspect-[1905/800] min-h-[240px] sm:min-h-[340px] md:min-h-[440px] lg:min-h-[520px] xl:min-h-[600px] max-h-[800px] flex items-end overflow-hidden">
+        {/* Slide Images - Clean, unmasked high-res banners */}
         <div className="absolute inset-0 z-0 overflow-hidden">
           {CINEMA_SLIDES.map((slide, index) => {
             const isActive = index === activeSlide;
+            const SlideWrapper = enableLinks ? Link : "div";
+            const wrapperProps = enableLinks
+              ? { to: slide.href, params: slide.params }
+              : {};
             return (
-              <div
+              <SlideWrapper
                 key={slide.id}
+                {...(wrapperProps as any)}
                 className={cn(
-                  "absolute inset-0 transition-opacity duration-1000 ease-out",
+                  "absolute inset-0 block transition-opacity duration-700 ease-in-out cursor-pointer",
                   isActive
                     ? "opacity-100 z-10"
                     : "opacity-0 z-0 pointer-events-none",
                 )}
+                aria-label={slide.headline}
               >
-                {/* Background Full-Bleed Image with Multi-stage Gradient Mask */}
                 <img
                   src={slide.image}
                   alt={slide.imageAlt}
-                  className="h-full w-full object-cover object-center scale-105 transition-transform duration-[8000ms] ease-out"
-                  style={{
-                    transform: isActive ? "scale(1)" : "scale(1.08)",
-                  }}
+                  className="h-full w-full object-cover object-center"
                 />
-                {/* Cinema Gradient Overlays for High Legibility */}
-                <div
-                  className={cn(
-                    "absolute inset-0",
-                    slide.theme === "dark" &&
-                      "bg-gradient-to-r from-black/95 via-black/80 to-black/40 lg:to-transparent",
-                    slide.theme === "slate" &&
-                      "bg-gradient-to-r from-[#0d0e12]/95 via-[#0d0e12]/80 to-transparent",
-                    slide.theme === "vibrant" &&
-                      "bg-gradient-to-r from-[#0a0518]/95 via-[#0a0518]/80 to-transparent",
-                    slide.theme === "light" &&
-                      "bg-gradient-to-r from-black/90 via-black/75 to-transparent",
-                  )}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/30" />
-              </div>
+              </SlideWrapper>
             );
           })}
         </div>
 
-        {/* Ambient Top & Bottom Glass Accents */}
-        <div className="pointer-events-none absolute inset-x-0 top-0 z-20 h-24 bg-gradient-to-b from-black/60 to-transparent" />
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-28 bg-gradient-to-t from-black to-transparent" />
-
-        {/* Main Cinema Content Stage */}
-        <div className="relative z-20 mx-auto w-full max-w-7xl px-6 py-20 sm:px-8 lg:px-12">
-          <div className="max-w-2xl lg:max-w-3xl">
-            {/* Minimalist Studio Pill */}
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1 text-[11px] font-semibold tracking-wider text-white backdrop-blur-md">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#2997ff]" />
-              <span>{current.tag}</span>
-              <span className="text-white/40">•</span>
-              <span className="text-white/80">{current.badge}</span>
-            </div>
-
-            {/* Apple Keynote Headline Typography */}
-            <h1 className="mt-5 text-4xl font-extrabold tracking-[-0.03em] text-white sm:text-6xl lg:text-[4.25rem] leading-[1.04]">
-              {current.headline}
-            </h1>
-            <p className="mt-4 max-w-lg text-base leading-relaxed text-white/75 sm:text-lg">
-              {current.lead}
-            </p>
-
-            {/* Single Streamlined Primary Call-to-Action */}
-            <div className="mt-8 flex items-center">
-              {enableLinks ? (
-                <Link
-                  to={current.href}
-                  params={current.params}
-                  className="inline-flex items-center gap-2 rounded-full bg-[#0071e3] px-7 py-3.5 text-sm font-semibold text-white shadow-[0_4px_20px_rgba(0,113,227,0.35)] transition-all duration-300 hover:scale-105 hover:bg-[#0077ed] active:scale-95"
-                >
-                  <span>Shop Now</span>
-                  <ChevronRight className="h-4 w-4" />
-                </Link>
-              ) : (
-                <button
-                  type="button"
-                  className="inline-flex items-center gap-2 rounded-full bg-[#0071e3] px-7 py-3.5 text-sm font-semibold text-white shadow-[0_4px_20px_rgba(0,113,227,0.35)] transition-all hover:bg-[#0077ed]"
-                >
-                  <span>Shop Now</span>
-                  <ChevronRight className="h-4 w-4" />
-                </button>
-              )}
-            </div>
+        {/* Minimalist Floating Shop Now CTA Button (Bottom Left) */}
+        <div className="relative z-20 mx-auto w-full max-w-7xl px-6 pb-6 sm:px-8 sm:pb-8 lg:px-12 lg:pb-10 pointer-events-none">
+          <div className="pointer-events-auto inline-block">
+            {enableLinks ? (
+              <Link
+                to={current.href}
+                params={current.params}
+                className="inline-flex items-center gap-2 rounded-full bg-[#0071e3] px-6 py-2.5 text-xs sm:px-7 sm:py-3 sm:text-sm font-semibold text-white shadow-[0_4px_24px_rgba(0,113,227,0.45)] transition-all duration-300 hover:scale-105 hover:bg-[#0077ed] active:scale-95"
+              >
+                <span>Shop Now</span>
+                <ChevronRight className="h-4 w-4" />
+              </Link>
+            ) : (
+              <button
+                type="button"
+                className="inline-flex items-center gap-2 rounded-full bg-[#0071e3] px-6 py-2.5 text-xs sm:px-7 sm:py-3 sm:text-sm font-semibold text-white shadow-[0_4px_24px_rgba(0,113,227,0.45)] transition-all hover:bg-[#0077ed]"
+              >
+                <span>Shop Now</span>
+                <ChevronRight className="h-4 w-4" />
+              </button>
+            )}
           </div>
         </div>
 
-        {/* Carousel Left/Right Floating Arrows */}
-        <div className="absolute inset-y-0 right-6 z-30 hidden items-center gap-2 sm:flex lg:right-12">
+        {/* Floating Left/Right Navigation Arrows */}
+        <div className="pointer-events-none absolute inset-y-0 inset-x-4 sm:inset-x-6 lg:inset-x-8 z-30 flex items-center justify-between">
           <button
             type="button"
             aria-label="Previous slide"
             onClick={handlePrev}
-            className="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-xl transition-all duration-300 hover:bg-white/25 hover:scale-105 active:scale-95 border border-white/15"
+            className="pointer-events-auto flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-xl transition-all duration-300 hover:bg-black/70 hover:scale-105 active:scale-95 border border-white/20 shadow-lg"
           >
-            <ChevronLeft className="h-5 w-5" />
+            <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6" />
           </button>
           <button
             type="button"
             aria-label="Next slide"
             onClick={handleNext}
-            className="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-xl transition-all duration-300 hover:bg-white/25 hover:scale-105 active:scale-95 border border-white/15"
+            className="pointer-events-auto flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-xl transition-all duration-300 hover:bg-black/70 hover:scale-105 active:scale-95 border border-white/20 shadow-lg"
           >
-            <ChevronRight className="h-5 w-5" />
+            <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6" />
           </button>
         </div>
       </div>

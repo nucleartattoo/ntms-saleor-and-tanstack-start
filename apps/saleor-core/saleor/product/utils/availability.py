@@ -185,8 +185,13 @@ def get_variant_availability(
 ) -> VariantAvailability | None:
     if variant_channel_listing.price is None:
         return None
+    discounted_price = (
+        variant_channel_listing.discounted_price
+        if variant_channel_listing.discounted_price is not None
+        else variant_channel_listing.price
+    )
     discounted_price_taxed = _calculate_product_price_with_taxes(
-        variant_channel_listing.discounted_price,
+        discounted_price,
         tax_rate,
         tax_calculation_strategy,
         prices_entered_with_tax,

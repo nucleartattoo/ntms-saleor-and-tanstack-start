@@ -187,6 +187,10 @@ export function NtmsSaleorVariantSelector({
                   value.id,
                 );
 
+                if (!available) {
+                  return null;
+                }
+
                 return (
                   <button
                     aria-label={`Select ${group.name}: ${value.name}`}
@@ -247,7 +251,7 @@ function getSelectableVariants(variants: NtmsSaleorProductVariant[]) {
   return inStock.length > 0 ? inStock : variants;
 }
 
-function isSaleorVariantAvailable(variant: NtmsSaleorProductVariant) {
+export function isSaleorVariantAvailable(variant: NtmsSaleorProductVariant) {
   return (
     typeof variant.quantityAvailable === "number" &&
     Number.isFinite(variant.quantityAvailable) &&

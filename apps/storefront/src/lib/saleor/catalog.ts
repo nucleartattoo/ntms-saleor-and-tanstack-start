@@ -900,6 +900,94 @@ export async function getNtmsSaleorNavigationCategories(): Promise<
     );
 }
 
+const ZOEY_INKS_SORT_ORDER = [
+  "ntms-219-dermaglo-ink", // 1. Dermaglo Ink
+  "ntms-596-panthera-ink", // 2. Panthera Ink
+  "ntms-512-eternal-inks", // 3. Eternal Inks
+  "ntms-604-solid-ink", // 4. Solid Ink
+  "ntms-239-empire-ink", // 5. Empire Ink
+  "ntms-502-dynamic-ink", // 6. Dynamic Ink
+  "ntms-622-starbrite-ink", // 7. Starbrite Ink
+  "ntms-496-allegory-ink", // 8. Allegory Ink
+  "ntms-187-industry-inks", // 9. Industry Inks
+  "ntms-221-fusion-ink", // 10. Fusion Ink
+  "ntms-592-intenze-ink", // 11. Intenze Ink
+  "ntms-498-big-sleeps-ink", // 12. Big Sleeps Ink
+  "ntms-624-world-famous-ink", // 13. World Famous Ink
+  "ntms-329-revolution-ink", // 14. Revolution Ink
+  "ntms-594-kwadron-inx", // 15. Kwadron Inx
+  "ntms-raw-pigment", // 16. Raw Pigment
+  "ntms-480-ink-accessories", // 17. Ink Accessories
+  "ntms-478-black-inks", // 18. Black Inks
+];
+
+const ZOEY_MACHINES_SORT_ORDER = [
+  "ntms-machines-rotaries", // 1. Rotary Machines
+  "ntms-machines-coils", // 2. Coil Machines
+  "ntms-machines-kylin", // 3. Kylin
+  "ntms-machines-papa", // 4. PAPA Tattoo Machine
+  "ntms-machines-cheyenne", // 5. Cheyenne
+  "ntms-machines-fk-irons", // 6. FK Irons
+  "ntms-machines-bishop", // 7. Bishop Rotary
+  "ntms-machines-inkjecta", // 8. Inkjecta
+  "ntms-machines-ambition", // 9. Ambition
+  "ntms-machines-parts", // 10. Machine Parts & Accessories
+];
+
+const ZOEY_MEDICAL_SORT_ORDER = [
+  "ntms-med-aftercare", // 1. Aftercare & Ointments
+  "ntms-med-anesthetics", // 2. Topical Anesthetics
+  "ntms-med-disinfectants", // 3. Infection Control
+  "ntms-med-gloves", // 4. Gloves & PPE
+  "ntms-med-sterilization", // 5. Sterilization
+  "ntms-127-single-use", // 6. Single Use
+];
+
+const ZOEY_POWER_SORT_ORDER = [
+  "ntms-power-critical", // 1. Critical Power Supplies
+  "ntms-power-wireless", // 2. Wireless Batteries
+  "ntms-power-cheyenne", // 3. Cheyenne Power Supplies
+  "ntms-power-fk-irons", // 4. FK Irons Power Supplies
+  "ntms-power-eikon", // 5. Eikon Power Supplies
+  "ntms-power-papa", // 6. Papa Power Supply
+  "ntms-power-digital", // 7. Digital Power Supplies
+  "ntms-power-cords", // 8. RCA & Clip Cords
+  "ntms-power-pedals", // 9. Foot Pedals & Switches
+];
+
+const ZOEY_TUBES_GRIPS_SORT_ORDER = [
+  "ntms-grips-disposable", // 1. Disposable Needle and Cartridge Tubes
+  "ntms-grips-pen-style", // 2. Disposable Pen Grips
+  "ntms-grips-cartridge-click", // 3. Cartridge Click Tube & Grips
+  "ntms-grips-stainless", // 4. Stainless Tubes & Grips
+  "ntms-grips-foam-covers", // 5. Memory Foam Cover
+  "ntms-grips-accessories", // 6. Tube & Grip Accessories
+];
+
+const ZOEY_SHOP_SUPPLY_SORT_ORDER = [
+  "ntms-shop-stencils", // 1. Stencil Paper & Copiers
+  "ntms-shop-furniture", // 2. Studio Furniture & Lights
+  "ntms-shop-books", // 3. Tattoo Books & Flash
+  "ntms-shop-jewelry", // 4. Body Jewelry
+  "ntms-shop-apparel", // 5. Studio Apparel & Gear
+];
+
+const ZOEY_PAPA_SORT_ORDER = [
+  "ntms-946-papa-cartridges", // 1. Papa Cartridge Needles
+  "ntms-430-papa-pen", // 2. Papa Pen
+  "ntms-428-papa-apollo", // 3. Papa Apollo
+  "ntms-323-papa-adjustable-click", // 4. Papa Adjustable Click
+  "ntms-321-papa-disposable-cartridge-grip", // 5. Papa Disposable Cartridge Grip
+  "ntms-438-papa-stencil", // 6. Papa Stencil
+  "ntms-436-papa-power-supply", // 7. Papa Power Supply
+  "ntms-307-papa-accessory", // 8. Papa Accessory
+];
+
+const ZOEY_SALES_SORT_ORDER = [
+  "ntms-460-machine-and-power-supply-sale", // 1. Machine & Power Supply Sale
+  "ntms-456-fk-irons", // 2. FK Irons
+];
+
 export async function getNtmsSaleorCategoryPage(
   slug: string,
   options: NtmsSaleorCategoryPageOptions = {},
@@ -1022,6 +1110,31 @@ export async function getNtmsSaleorCategoryPage(
       mapCategory(edge.node),
     ]),
   );
+  const isInksCategory =
+    categoryBase.slug === "ntms-91-inks" ||
+    categoryBase.name.toLowerCase() === "inks";
+  const isMachinesCategory =
+    categoryBase.slug === "ntms-103-machines" ||
+    categoryBase.name.toLowerCase() === "machines";
+  const isMedicalCategory =
+    categoryBase.slug === "ntms-89-medical" ||
+    categoryBase.name.toLowerCase() === "medical";
+  const isPowerCategory =
+    categoryBase.slug === "ntms-85-power-supplies-and-cords" ||
+    categoryBase.name.toLowerCase().includes("power supplies");
+  const isTubesGripsCategory =
+    categoryBase.slug === "ntms-107-tubes-and-grips" ||
+    categoryBase.name.toLowerCase().includes("tubes & grips");
+  const isShopSupplyCategory =
+    categoryBase.slug === "ntms-113-shop-supply" ||
+    categoryBase.name.toLowerCase().includes("shop supply");
+  const isPapaCategory =
+    categoryBase.slug === "ntms-117-papa" ||
+    categoryBase.name.toLowerCase() === "papa";
+  const isSalesCategory =
+    categoryBase.slug === "ntms-452-sales" ||
+    categoryBase.name.toLowerCase() === "sales";
+
   const children = (data.category?.children?.edges ?? [])
     .map((edge) =>
       applyCollectionOverride(
@@ -1030,7 +1143,81 @@ export async function getNtmsSaleorCategoryPage(
       ),
     )
     .filter((child) => child.productCount > 0)
-    .sort((left, right) => right.productCount - left.productCount);
+    .sort((left, right) => {
+      if (isInksCategory) {
+        const leftIdx = ZOEY_INKS_SORT_ORDER.indexOf(left.slug);
+        const rightIdx = ZOEY_INKS_SORT_ORDER.indexOf(right.slug);
+        const leftOrder = leftIdx === -1 ? 999 : leftIdx;
+        const rightOrder = rightIdx === -1 ? 999 : rightIdx;
+        if (leftOrder !== rightOrder) {
+          return leftOrder - rightOrder;
+        }
+      }
+      if (isMachinesCategory) {
+        const leftIdx = ZOEY_MACHINES_SORT_ORDER.indexOf(left.slug);
+        const rightIdx = ZOEY_MACHINES_SORT_ORDER.indexOf(right.slug);
+        const leftOrder = leftIdx === -1 ? 999 : leftIdx;
+        const rightOrder = rightIdx === -1 ? 999 : rightIdx;
+        if (leftOrder !== rightOrder) {
+          return leftOrder - rightOrder;
+        }
+      }
+      if (isMedicalCategory) {
+        const leftIdx = ZOEY_MEDICAL_SORT_ORDER.indexOf(left.slug);
+        const rightIdx = ZOEY_MEDICAL_SORT_ORDER.indexOf(right.slug);
+        const leftOrder = leftIdx === -1 ? 999 : leftIdx;
+        const rightOrder = rightIdx === -1 ? 999 : rightIdx;
+        if (leftOrder !== rightOrder) {
+          return leftOrder - rightOrder;
+        }
+      }
+      if (isPowerCategory) {
+        const leftIdx = ZOEY_POWER_SORT_ORDER.indexOf(left.slug);
+        const rightIdx = ZOEY_POWER_SORT_ORDER.indexOf(right.slug);
+        const leftOrder = leftIdx === -1 ? 999 : leftIdx;
+        const rightOrder = rightIdx === -1 ? 999 : rightIdx;
+        if (leftOrder !== rightOrder) {
+          return leftOrder - rightOrder;
+        }
+      }
+      if (isTubesGripsCategory) {
+        const leftIdx = ZOEY_TUBES_GRIPS_SORT_ORDER.indexOf(left.slug);
+        const rightIdx = ZOEY_TUBES_GRIPS_SORT_ORDER.indexOf(right.slug);
+        const leftOrder = leftIdx === -1 ? 999 : leftIdx;
+        const rightOrder = rightIdx === -1 ? 999 : rightIdx;
+        if (leftOrder !== rightOrder) {
+          return leftOrder - rightOrder;
+        }
+      }
+      if (isShopSupplyCategory) {
+        const leftIdx = ZOEY_SHOP_SUPPLY_SORT_ORDER.indexOf(left.slug);
+        const rightIdx = ZOEY_SHOP_SUPPLY_SORT_ORDER.indexOf(right.slug);
+        const leftOrder = leftIdx === -1 ? 999 : leftIdx;
+        const rightOrder = rightIdx === -1 ? 999 : rightIdx;
+        if (leftOrder !== rightOrder) {
+          return leftOrder - rightOrder;
+        }
+      }
+      if (isPapaCategory) {
+        const leftIdx = ZOEY_PAPA_SORT_ORDER.indexOf(left.slug);
+        const rightIdx = ZOEY_PAPA_SORT_ORDER.indexOf(right.slug);
+        const leftOrder = leftIdx === -1 ? 999 : leftIdx;
+        const rightOrder = rightIdx === -1 ? 999 : rightIdx;
+        if (leftOrder !== rightOrder) {
+          return leftOrder - rightOrder;
+        }
+      }
+      if (isSalesCategory) {
+        const leftIdx = ZOEY_SALES_SORT_ORDER.indexOf(left.slug);
+        const rightIdx = ZOEY_SALES_SORT_ORDER.indexOf(right.slug);
+        const leftOrder = leftIdx === -1 ? 999 : leftIdx;
+        const rightOrder = rightIdx === -1 ? 999 : rightIdx;
+        if (leftOrder !== rightOrder) {
+          return leftOrder - rightOrder;
+        }
+      }
+      return right.productCount - left.productCount;
+    });
   const categoryDirectTotal = data.category?.products?.totalCount ?? 0;
   const collectionTotal = collectionOverride?.productCount ?? 0;
   const products = (selectedConnection?.edges ?? []).map((edge) =>
@@ -1447,7 +1634,7 @@ function mapVariantAttributes(
 function mapProductVariants(
   product: SaleorProductNode,
 ): NtmsSaleorProductVariant[] {
-  return (product.variants ?? []).map((variant) => {
+  const allVariants = (product.variants ?? []).map((variant) => {
     const defaultAttrs = mapVariantAttributes(variant.attributes);
     const selectionAttrs = mapVariantAttributes(variant.selectionAttributes);
     const nonSelectionAttrs = mapVariantAttributes(
@@ -1475,6 +1662,14 @@ function mapProductVariants(
       nonSelectionAttributes: nonSelectionAttrs,
     };
   });
+
+  const inStock = allVariants.filter(
+    (variant) =>
+      typeof variant.quantityAvailable === "number" &&
+      variant.quantityAvailable > 0,
+  );
+
+  return inStock.length > 0 ? inStock : allVariants;
 }
 
 function parseSaleorDescription(description: string | null | undefined) {
