@@ -42,19 +42,19 @@ function SignInComponent() {
     <AuthShell
       activeAuthTab="sign-in"
       eyebrow="Sign in"
-      title="Access your studio account"
+      title="Access your customer account"
       description="Sign in before checkout to keep carts, orders, addresses, and payment state tied to the same customer profile."
       buildVersion={buildVersion}
     >
       <div className="mb-6 text-center">
         <p className="text-[11px] font-bold uppercase tracking-[0.24em] text-[#0071e3]">
-          Professional Account
+          Customer Account
         </p>
         <h1 className="mt-2 text-2xl font-black tracking-tight text-[#1d1d1f] sm:text-3xl">
           Sign In
         </h1>
         <p className="mt-2 text-xs leading-relaxed text-[#6e6e73]">
-          Access order tracking, wholesale pricing, and saved studio addresses.
+          Access order tracking, saved shipping addresses, and rapid checkout.
         </p>
       </div>
       <SignInForm />

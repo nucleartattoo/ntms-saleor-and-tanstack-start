@@ -29,14 +29,14 @@ function RegisterComponent() {
     >
       <div className="mb-6 text-center">
         <p className="text-[11px] font-bold uppercase tracking-[0.24em] text-[#0071e3]">
-          Artist & Studio Portal
+          Customer Account
         </p>
         <h1 className="mt-2 text-2xl font-black tracking-tight text-[#1d1d1f] sm:text-3xl">
-          Create Studio Profile
+          Create Account
         </h1>
         <p className="mt-2 text-xs leading-relaxed text-[#6e6e73]">
-          Join verified tattoo artists nationwide for priority dispatch and
-          direct wholesale.
+          Create a customer account for instant ordering, fast checkout, and
+          order tracking.
         </p>
       </div>
       <RegisterForm />

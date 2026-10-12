@@ -719,20 +719,18 @@ function AppleCinemaHero({ enableLinks = false }: { enableLinks?: boolean }) {
         <div className="absolute inset-0 z-0 overflow-hidden">
           {CINEMA_SLIDES.map((slide, index) => {
             const isActive = index === activeSlide;
-            const SlideWrapper = enableLinks ? Link : "div";
-            const wrapperProps = enableLinks
-              ? { to: slide.href, params: slide.params }
-              : {};
-            return (
-              <SlideWrapper
+            const className = cn(
+              "absolute inset-0 block transition-opacity duration-700 ease-in-out cursor-pointer",
+              isActive
+                ? "opacity-100 z-10"
+                : "opacity-0 z-0 pointer-events-none",
+            );
+            return enableLinks ? (
+              <Link
                 key={slide.id}
-                {...(wrapperProps as any)}
-                className={cn(
-                  "absolute inset-0 block transition-opacity duration-700 ease-in-out cursor-pointer",
-                  isActive
-                    ? "opacity-100 z-10"
-                    : "opacity-0 z-0 pointer-events-none",
-                )}
+                to={slide.href}
+                params={slide.params}
+                className={className}
                 aria-label={slide.headline}
               >
                 <img
@@ -740,7 +738,15 @@ function AppleCinemaHero({ enableLinks = false }: { enableLinks?: boolean }) {
                   alt={slide.imageAlt}
                   className="h-full w-full object-cover object-center"
                 />
-              </SlideWrapper>
+              </Link>
+            ) : (
+              <div key={slide.id} className={className}>
+                <img
+                  src={slide.image}
+                  alt={slide.imageAlt}
+                  className="h-full w-full object-cover object-center"
+                />
+              </div>
             );
           })}
         </div>

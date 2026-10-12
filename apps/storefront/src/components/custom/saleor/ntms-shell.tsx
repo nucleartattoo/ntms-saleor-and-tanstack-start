@@ -395,7 +395,7 @@ function NtmsSaleorFooter({
             <ul className="mt-4 space-y-2 text-xs font-medium text-[#6e6e73]">
               <li>Direct Medical Compliance</li>
               <li>Same-Day Dispatch &amp; Tracking</li>
-              <li>Verified Artist Wholesale</li>
+              <li>Direct Studio Supply</li>
               <li>Sterility &amp; Lot Certifications</li>
             </ul>
           </div>

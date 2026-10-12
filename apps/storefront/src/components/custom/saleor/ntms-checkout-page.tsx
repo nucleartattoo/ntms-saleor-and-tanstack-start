@@ -795,8 +795,7 @@ function PaymentSection({
             data-saleor-payment-unavailable
             role="status"
           >
-            {checkout.paymentGateways.length === 0 &&
-            !checkout.selectedShippingMethod
+            {!checkout.selectedShippingMethod
               ? "Save delivery details and select a shipping method to load payment options."
               : "Online payment is not available yet. Your cart is saved; please try again later."}
           </p>
@@ -1904,7 +1903,9 @@ function CheckoutSummary({
           <p className="mt-3 text-xs leading-5 text-foreground/45">
             {requiresPaymentPanel
               ? "Complete the selected payment method above to place the order."
-              : "Save delivery details and select a shipping method before placing the order."}
+              : !checkout.shippingAddress || !checkout.selectedShippingMethod
+                ? "Save delivery details and select a shipping method before placing the order."
+                : "Select a payment method before placing the order."}
           </p>
         ) : (
           <p className="mt-3 text-xs leading-5 text-foreground/45">

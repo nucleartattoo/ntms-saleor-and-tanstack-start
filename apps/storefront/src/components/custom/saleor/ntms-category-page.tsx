@@ -147,7 +147,7 @@ function AppleSubnavRibbon({
       el.removeEventListener("scroll", checkScroll);
       window.removeEventListener("resize", checkScroll);
     };
-  }, [checkScroll, children]);
+  }, [checkScroll]);
 
   const scrollByAmount = (offset: number) => {
     const el = scrollRef.current;
