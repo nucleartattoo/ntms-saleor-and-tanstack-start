@@ -77,6 +77,7 @@ export async function saleorFetch<
     headers: {
       "content-type": "application/json",
       accept: "application/json",
+      "x-forwarded-proto": "https",
       ...(authToken ? { authorization: `Bearer ${authToken}` } : {}),
     },
     body: JSON.stringify({ query, variables }),
