@@ -103,7 +103,7 @@ export function NtmsMobileChannelSelector({
               disabled={isSwitching}
               onClick={() => switchChannel(ch.slug)}
               className={cn(
-                "flex h-11 items-center justify-center gap-2 rounded-xl text-xs font-semibold transition-all duration-200",
+                "flex h-11 items-center justify-center gap-2 rounded-xl text-xs font-semibold transition-[transform,background-color,color,box-shadow] duration-160 ease-[var(--ease-out)] active:scale-[0.98]",
                 isSelected
                   ? "bg-white text-[#1d1d1f] shadow-sm"
                   : "text-[#86868b] hover:text-[#1d1d1f]",

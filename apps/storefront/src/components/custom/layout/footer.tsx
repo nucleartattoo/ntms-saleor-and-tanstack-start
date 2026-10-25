@@ -43,7 +43,7 @@ export default function Footer({ menu }: FooterProps) {
             {copyrightName.length && !copyrightName.endsWith(".") ? "." : ""}{" "}
             All rights reserved.
           </p>
-          <hr className="mx-4 hidden h-4 w-px border-l border-black/10/24 md:inline-block" />
+          <hr className="mx-4 hidden h-4 w-px border-l border-black/10 md:inline-block" />
           <p>Machines, needles, power, and shop essentials.</p>
           <div className="md:ml-auto">
             <p className="text-xs text-foreground/45">
@@ -51,21 +51,6 @@ export default function Footer({ menu }: FooterProps) {
             </p>
           </div>
         </div>
-      </div>
-
-      {/* Development Version Pill Badge */}
-      <div className="mt-8 flex items-center justify-between border-t border-black/[0.04] pt-6 text-[11px] text-[#86868b]">
-        <div className="flex items-center gap-2">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-2.5 py-0.5 font-bold uppercase tracking-wider text-emerald-600 border border-emerald-500/20">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            <span>Apple Build v1.0.24-PROD</span>
-          </span>
-          <span>&bull;</span>
-          <span>Studio Engine Online</span>
-        </div>
-        <p className="font-mono text-[10px] text-[#86868b]">
-          Release 20260830-apple-1.0.24
-        </p>
       </div>
     </footer>
   );

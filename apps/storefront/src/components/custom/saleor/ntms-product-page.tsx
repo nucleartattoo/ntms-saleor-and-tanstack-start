@@ -436,23 +436,22 @@ export function NtmsSaleorProductPageView({
   ]);
 
   useEffect(() => {
-    const updateMobileBuyBar = () => {
-      const purchaseSection = primaryPurchaseRef.current;
-      setShowMobileBuyBar(
-        Boolean(
-          purchaseSection && purchaseSection.getBoundingClientRect().bottom < 0,
-        ),
+    const purchaseSection = primaryPurchaseRef.current;
+    if (!purchaseSection) return;
+
+    if (typeof IntersectionObserver !== "undefined") {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (!entry) return;
+          setShowMobileBuyBar(
+            !entry.isIntersecting && entry.boundingClientRect.bottom < 0,
+          );
+        },
+        { threshold: 0 },
       );
-    };
-
-    updateMobileBuyBar();
-    window.addEventListener("scroll", updateMobileBuyBar, { passive: true });
-    window.addEventListener("resize", updateMobileBuyBar);
-
-    return () => {
-      window.removeEventListener("scroll", updateMobileBuyBar);
-      window.removeEventListener("resize", updateMobileBuyBar);
-    };
+      observer.observe(purchaseSection);
+      return () => observer.disconnect();
+    }
   }, []);
 
   const selectVariant = (variantId: string) => {
@@ -603,10 +602,10 @@ export function NtmsSaleorProductPageView({
                       aria-label={`Show image ${index + 1} of ${activeGallery.length}`}
                       aria-pressed={active}
                       className={cn(
-                        "group relative flex h-14 w-14 sm:h-16 sm:w-16 shrink-0 items-center justify-center rounded-2xl bg-white p-1.5 transition-all duration-200 ease-out motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0071e3]",
+                        "group relative flex h-14 w-14 sm:h-16 sm:w-16 shrink-0 items-center justify-center rounded-2xl bg-white p-1.5 transition-[transform,opacity,border-color,box-shadow] duration-180 ease-[var(--ease-out)] active:scale-[0.96] motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0071e3]",
                         active
                           ? "border-2 border-[#0071e3] shadow-[0_4px_16px_rgba(0,113,227,0.22)] opacity-100 scale-105 z-10"
-                          : "border border-black/[0.08] opacity-70 hover:opacity-100 hover:border-black/25 shadow-[0_1px_4px_rgba(0,0,0,0.02)] hover:scale-105",
+                          : "border border-black/[0.08] opacity-75 hover:opacity-100 hover:border-black/25 shadow-[0_1px_4px_rgba(0,0,0,0.02)] [@media(hover:hover)]:hover:scale-105",
                       )}
                       key={media.url}
                       onClick={() => setSelectedMediaUrl(media.url)}
@@ -780,7 +779,7 @@ export function NtmsSaleorProductPageView({
                           return (
                             <label
                               className={[
-                                "relative flex cursor-pointer flex-col justify-between rounded-2xl p-4 text-left transition-all duration-200",
+                                "relative flex cursor-pointer flex-col justify-between rounded-2xl p-4 text-left transition-[transform,border-color,box-shadow] duration-160 ease-[var(--ease-out)] active:scale-[0.98]",
                                 active
                                   ? "border-2 border-[#0071e3] bg-white ring-1 ring-[#0071e3]/20 shadow-[0_2px_8px_rgba(0,113,227,0.08)]"
                                   : "border border-[#d2d2d7] bg-white hover:border-[#86868b] shadow-[0_1px_2px_rgba(0,0,0,0.02)]",
@@ -836,7 +835,7 @@ export function NtmsSaleorProductPageView({
 
               <div className="mt-6" ref={primaryPurchaseRef}>
                 <NtmsSaleorAddToCartButton
-                  className="w-full rounded-full bg-[#0071e3] py-3.5 text-sm font-semibold text-white shadow-[0_4px_16px_rgba(0,113,227,0.3)] transition-all hover:bg-[#0077ed] hover:shadow-[0_6px_20px_rgba(0,113,227,0.4)] hover:scale-[1.02] active:scale-[0.98]"
+                  className="w-full rounded-full bg-[#0071e3] py-3.5 text-sm font-semibold text-white shadow-[0_4px_16px_rgba(0,113,227,0.3)] transition-[transform,background-color,box-shadow] duration-160 ease-[var(--ease-out)] hover:bg-[#0077ed] hover:shadow-[0_6px_20px_rgba(0,113,227,0.4)] [@media(hover:hover)]:hover:scale-[1.01] active:scale-[0.97]"
                   disabled={!canAdd}
                   label="Add to Bag"
                   quantity={quantity}
@@ -868,12 +867,12 @@ export function NtmsSaleorProductPageView({
         <section className="mt-16 overflow-hidden rounded-[2.5rem] bg-white p-8 sm:p-12 shadow-[0_4px_30px_rgba(0,0,0,0.04)] border border-black/[0.04]">
           <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-black/[0.06] pb-8 gap-4">
             <div>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0071e3]">
-                Studio Specification &amp; Insights
-              </p>
-              <h2 className="mt-2 text-2xl font-bold tracking-[-0.03em] text-[#1d1d1f] sm:text-3xl leading-[1.12]">
+              <h2 className="text-2xl font-bold tracking-[-0.03em] text-[#1d1d1f] sm:text-3xl leading-[1.12]">
                 Product Overview &amp; Details
               </h2>
+              <p className="mt-1.5 text-sm text-[#6e6e73]">
+                Technical specifications and batch verification
+              </p>
             </div>
 
             <div className="flex items-center gap-2">
@@ -982,10 +981,7 @@ export function NtmsSaleorProductPageView({
           <section className="mt-16">
             <div className="flex items-center justify-between pb-8">
               <div>
-                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0071e3]">
-                  Studio Pairings
-                </p>
-                <h2 className="mt-2 text-2xl font-bold tracking-[-0.03em] text-[#1d1d1f] sm:text-3xl leading-[1.12]">
+                <h2 className="text-2xl font-bold tracking-[-0.03em] text-[#1d1d1f] sm:text-3xl leading-[1.12]">
                   More in {product.category?.name ?? "Hardware"}
                 </h2>
               </div>
@@ -1016,7 +1012,7 @@ export function NtmsSaleorProductPageView({
       {/* Mobile Sticky Buy Bar */}
       {showMobileBuyBar ? (
         <div
-          className="fixed inset-x-0 bottom-0 z-40 border-t border-black/[0.06] bg-white/85 px-4 py-3 shadow-[0_-10px_30px_rgba(0,0,0,0.08)] backdrop-blur-2xl saturate-150 lg:hidden"
+          className="fixed inset-x-0 bottom-0 z-40 translate-y-0 border-t border-black/[0.06] bg-white/85 px-4 py-3 opacity-100 shadow-[0_-10px_30px_rgba(0,0,0,0.08)] backdrop-blur-2xl saturate-150 transition-[transform,opacity] duration-240 ease-[var(--ease-drawer)] [@starting-style]:translate-y-full [@starting-style]:opacity-0 lg:hidden"
           data-saleor-mobile-buy-bar
         >
           <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
@@ -1141,7 +1137,7 @@ function QuantityControl({
     <div className="flex h-9 shrink-0 items-center rounded-full bg-[#f5f5f7] p-1 border border-black/[0.04]">
       <button
         aria-label="Decrease quantity"
-        className="grid h-7 w-7 place-items-center rounded-full text-[#1d1d1f] transition-all hover:bg-white hover:shadow-sm active:scale-95 disabled:cursor-not-allowed disabled:opacity-30"
+        className="grid h-7 w-7 place-items-center rounded-full text-[#1d1d1f] transition-[transform,background-color,box-shadow] duration-150 ease-[var(--ease-out)] hover:bg-white hover:shadow-sm active:scale-95 disabled:cursor-not-allowed disabled:opacity-30"
         data-saleor-decrease-quantity
         disabled={!canAdd || quantity <= 1}
         onClick={() => updateQuantity(quantity - 1)}
@@ -1164,7 +1160,7 @@ function QuantityControl({
       />
       <button
         aria-label="Increase quantity"
-        className="grid h-7 w-7 place-items-center rounded-full text-[#1d1d1f] transition-all hover:bg-white hover:shadow-sm active:scale-95 disabled:cursor-not-allowed disabled:opacity-30"
+        className="grid h-7 w-7 place-items-center rounded-full text-[#1d1d1f] transition-[transform,background-color,box-shadow] duration-150 ease-[var(--ease-out)] hover:bg-white hover:shadow-sm active:scale-95 disabled:cursor-not-allowed disabled:opacity-30"
         data-saleor-increase-quantity
         disabled={!canAdd || quantity >= maxQuantity}
         onClick={() => updateQuantity(quantity + 1)}

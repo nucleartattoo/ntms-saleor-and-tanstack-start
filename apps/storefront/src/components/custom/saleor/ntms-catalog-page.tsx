@@ -144,8 +144,8 @@ export function NtmsSaleorCatalogPage({
 
             <div className="mt-12 grid gap-6 lg:grid-cols-3">
               {/* Giant Left Showcase Card */}
-              <div className="group relative flex min-h-[580px] flex-col justify-between overflow-hidden rounded-3xl sm:rounded-[2rem] lg:rounded-[2.5rem] border border-black/[0.04] bg-[#ffffff] p-7 sm:p-9 lg:p-10 pb-6 sm:pb-8 lg:pb-8 shadow-[0_4px_30px_rgba(0,0,0,0.04)] transition-all duration-500 ease-out hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] lg:col-span-2">
-                <div className="relative z-10 flex items-start justify-between">
+              <div className="group relative flex min-h-[540px] flex-col justify-between overflow-hidden rounded-3xl sm:rounded-[2rem] lg:rounded-[2.5rem] border border-black/[0.05] bg-[#ffffff] p-7 sm:p-9 lg:p-10 pb-6 sm:pb-8 lg:pb-8 shadow-[0_4px_30px_rgba(0,0,0,0.04)] transition-[transform,box-shadow] duration-300 ease-[var(--ease-out)] [@media(hover:hover)]:hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] motion-reduce:transition-none motion-reduce:transform-none lg:col-span-2">
+                <div className="relative z-10 flex items-start justify-between gap-4">
                   <div>
                     <span className="text-[11px] font-semibold uppercase tracking-widest text-[#86868b]">
                       {bento1.categoryName || "Flagship Hardware"}
@@ -154,15 +154,15 @@ export function NtmsSaleorCatalogPage({
                       {bento1.name}
                     </h3>
                   </div>
-                  <span className="rounded-full border border-black/[0.04] bg-[#f5f5f7] px-4 py-1.5 text-sm font-bold text-[#1d1d1f]">
+                  <span className="shrink-0 rounded-full border border-black/[0.05] bg-[#f5f5f7] px-4 py-1.5 text-sm font-bold text-[#1d1d1f]">
                     {bento1.price && bento1.price.amount > 0
                       ? formatSaleorMoney(bento1.price)
                       : "Pro Item"}
                   </span>
                 </div>
 
-                {/* Expansive Studio Image Stage: Fills the block seamlessly without border box artifacts */}
-                <div className="relative z-0 my-2 flex min-h-[420px] sm:min-h-[480px] lg:min-h-[520px] flex-1 items-center justify-center overflow-hidden">
+                {/* Expansive Studio Image Stage */}
+                <div className="relative z-0 my-4 flex min-h-[340px] sm:min-h-[400px] lg:min-h-[440px] flex-1 items-center justify-center overflow-hidden p-4">
                   {bento1.imageUrl ? (
                     <img
                       src={bento1.imageUrl}
@@ -197,7 +197,7 @@ export function NtmsSaleorCatalogPage({
                           target.src = fixed;
                         }
                       }}
-                      className="h-full w-full max-h-[520px] sm:max-h-[580px] object-contain mix-blend-multiply scale-110 sm:scale-120 lg:scale-125 transition-transform duration-700 ease-out group-hover:scale-[1.32]"
+                      className="h-full w-full max-h-[420px] sm:max-h-[460px] object-contain mix-blend-multiply scale-100 transition-transform duration-500 ease-[var(--ease-out)] [@media(hover:hover)]:group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:transform-none"
                     />
                   ) : (
                     <div className="flex h-64 w-64 items-center justify-center rounded-3xl bg-[#f5f5f7] text-sm text-[#86868b]">
@@ -211,7 +211,7 @@ export function NtmsSaleorCatalogPage({
                     <Link
                       to="/product/$productId"
                       params={{ productId: bento1.slug }}
-                      className="inline-flex items-center text-sm font-semibold text-[#0066cc] transition-transform duration-300 ease-out group-hover:translate-x-1"
+                      className="inline-flex items-center text-sm font-semibold text-[#0071e3] transition-transform duration-200 ease-[var(--ease-out)] group-hover:translate-x-0.5"
                     >
                       <span>Explore details</span>
                       <ChevronRight className="ml-1 h-4 w-4" />
@@ -223,7 +223,7 @@ export function NtmsSaleorCatalogPage({
                   )}
                   <NtmsSaleorAddToCartButton
                     variantId={bento1.variantId}
-                    className="rounded-full bg-[#1d1d1f] px-6 py-2 text-xs font-semibold text-white shadow-sm transition-[transform,background-color] duration-160 ease-out hover:bg-[#333336] [@media(hover:hover)]:hover:scale-[1.02] active:scale-[0.97] motion-reduce:transition-none motion-reduce:transform-none"
+                    className="rounded-full bg-[#1d1d1f] px-6 py-2 text-xs font-semibold text-white shadow-sm transition-[transform,background-color] duration-160 ease-[var(--ease-out)] hover:bg-[#333336] [@media(hover:hover)]:hover:scale-[1.02] active:scale-[0.97] motion-reduce:transition-none motion-reduce:transform-none"
                   />
                 </div>
               </div>
@@ -231,8 +231,8 @@ export function NtmsSaleorCatalogPage({
               {/* Right Stack: 2 Clean White Studio Cards */}
               <div className="flex flex-col gap-6">
                 {bento2 ? (
-                  <div className="group relative flex flex-1 flex-col justify-between overflow-hidden rounded-2xl sm:rounded-[2rem] border border-black/[0.04] bg-[#ffffff] p-6 sm:p-7 shadow-[0_4px_24px_rgba(0,0,0,0.04)] transition-[transform,box-shadow] duration-300 ease-out [@media(hover:hover)]:hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.07)] motion-reduce:transition-none motion-reduce:transform-none">
-                    <div className="relative z-10 flex items-start justify-between">
+                  <div className="group relative flex flex-1 flex-col justify-between overflow-hidden rounded-2xl sm:rounded-[2rem] border border-black/[0.05] bg-[#ffffff] p-6 sm:p-7 shadow-[0_4px_24px_rgba(0,0,0,0.04)] transition-[transform,box-shadow] duration-300 ease-[var(--ease-out)] [@media(hover:hover)]:hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.07)] motion-reduce:transition-none motion-reduce:transform-none">
+                    <div className="relative z-10 flex items-start justify-between gap-3">
                       <div>
                         <span className="text-[11px] font-semibold uppercase tracking-wider text-[#86868b]">
                           {bento2.categoryName || "Power System"}
@@ -241,14 +241,14 @@ export function NtmsSaleorCatalogPage({
                           {bento2.name}
                         </h4>
                       </div>
-                      <span className="rounded-full border border-black/[0.04] bg-[#f5f5f7] px-3 py-1 text-xs font-bold text-[#1d1d1f]">
+                      <span className="shrink-0 rounded-full border border-black/[0.05] bg-[#f5f5f7] px-3 py-1 text-xs font-bold text-[#1d1d1f]">
                         {bento2.price && bento2.price.amount > 0
                           ? formatSaleorMoney(bento2.price)
                           : "Pro Item"}
                       </span>
                     </div>
 
-                    <div className="relative z-0 my-2 flex min-h-[250px] sm:min-h-[280px] flex-1 items-center justify-center overflow-hidden">
+                    <div className="relative z-0 my-3 flex min-h-[200px] sm:min-h-[220px] flex-1 items-center justify-center overflow-hidden p-2">
                       {bento2.imageUrl ? (
                         <img
                           src={bento2.imageUrl}
@@ -283,7 +283,7 @@ export function NtmsSaleorCatalogPage({
                               target.src = fixed;
                             }
                           }}
-                          className="h-full w-full max-h-[280px] object-contain mix-blend-multiply scale-115 sm:scale-125 transition-transform duration-700 ease-out group-hover:scale-[1.35]"
+                          className="h-full w-full max-h-[220px] object-contain mix-blend-multiply scale-100 transition-transform duration-500 ease-[var(--ease-out)] [@media(hover:hover)]:group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:transform-none"
                         />
                       ) : null}
                     </div>
@@ -293,7 +293,7 @@ export function NtmsSaleorCatalogPage({
                         <Link
                           to="/product/$productId"
                           params={{ productId: bento2.slug }}
-                          className="inline-flex items-center text-xs font-semibold text-[#0066cc] transition-transform duration-300 ease-out hover:underline group-hover:translate-x-0.5"
+                          className="inline-flex items-center text-xs font-semibold text-[#0071e3] transition-transform duration-200 ease-[var(--ease-out)] hover:underline group-hover:translate-x-0.5"
                         >
                           <span>View hardware</span>
                           <span className="ml-1">&rarr;</span>
@@ -305,15 +305,15 @@ export function NtmsSaleorCatalogPage({
                       )}
                       <NtmsSaleorAddToCartButton
                         variantId={bento2.variantId}
-                        className="rounded-full bg-[#1d1d1f] px-4 py-1.5 text-xs font-semibold text-white shadow-sm transition-[transform,background-color] duration-160 ease-out hover:bg-[#333336] [@media(hover:hover)]:hover:scale-[1.03] active:scale-[0.97] motion-reduce:transition-none motion-reduce:transform-none"
+                        className="rounded-full bg-[#1d1d1f] px-4 py-1.5 text-xs font-semibold text-white shadow-sm transition-[transform,background-color] duration-160 ease-[var(--ease-out)] hover:bg-[#333336] [@media(hover:hover)]:hover:scale-[1.03] active:scale-[0.97] motion-reduce:transition-none motion-reduce:transform-none"
                       />
                     </div>
                   </div>
                 ) : null}
 
                 {bento3 ? (
-                  <div className="group relative flex flex-1 flex-col justify-between overflow-hidden rounded-2xl sm:rounded-[2rem] border border-black/[0.04] bg-[#ffffff] p-6 sm:p-7 shadow-[0_4px_24px_rgba(0,0,0,0.04)] transition-[transform,box-shadow] duration-300 ease-out [@media(hover:hover)]:hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.07)] motion-reduce:transition-none motion-reduce:transform-none">
-                    <div className="relative z-10 flex items-start justify-between">
+                  <div className="group relative flex flex-1 flex-col justify-between overflow-hidden rounded-2xl sm:rounded-[2rem] border border-black/[0.05] bg-[#ffffff] p-6 sm:p-7 shadow-[0_4px_24px_rgba(0,0,0,0.04)] transition-[transform,box-shadow] duration-300 ease-[var(--ease-out)] [@media(hover:hover)]:hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.07)] motion-reduce:transition-none motion-reduce:transform-none">
+                    <div className="relative z-10 flex items-start justify-between gap-3">
                       <div>
                         <span className="text-[11px] font-semibold uppercase tracking-wider text-[#86868b]">
                           {bento3.categoryName || "Precision Supply"}
@@ -322,14 +322,14 @@ export function NtmsSaleorCatalogPage({
                           {bento3.name}
                         </h4>
                       </div>
-                      <span className="rounded-full border border-black/[0.04] bg-[#f5f5f7] px-3 py-1 text-xs font-bold text-[#1d1d1f]">
+                      <span className="shrink-0 rounded-full border border-black/[0.05] bg-[#f5f5f7] px-3 py-1 text-xs font-bold text-[#1d1d1f]">
                         {bento3.price && bento3.price.amount > 0
                           ? formatSaleorMoney(bento3.price)
                           : "Pro Item"}
                       </span>
                     </div>
 
-                    <div className="relative z-0 my-2 flex min-h-[250px] sm:min-h-[280px] flex-1 items-center justify-center overflow-hidden">
+                    <div className="relative z-0 my-3 flex min-h-[200px] sm:min-h-[220px] flex-1 items-center justify-center overflow-hidden p-2">
                       {bento3.imageUrl ? (
                         <img
                           src={bento3.imageUrl}
@@ -364,7 +364,7 @@ export function NtmsSaleorCatalogPage({
                               target.src = fixed;
                             }
                           }}
-                          className="h-full w-full max-h-[280px] object-contain mix-blend-multiply scale-125 sm:scale-135 transition-transform duration-700 ease-out group-hover:scale-[1.42]"
+                          className="h-full w-full max-h-[220px] object-contain mix-blend-multiply scale-100 transition-transform duration-500 ease-[var(--ease-out)] [@media(hover:hover)]:group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:transform-none"
                         />
                       ) : null}
                     </div>
@@ -374,7 +374,7 @@ export function NtmsSaleorCatalogPage({
                         <Link
                           to="/product/$productId"
                           params={{ productId: bento3.slug }}
-                          className="inline-flex items-center text-xs font-semibold text-[#0066cc] transition-transform duration-300 ease-out hover:underline group-hover:translate-x-0.5"
+                          className="inline-flex items-center text-xs font-semibold text-[#0071e3] transition-transform duration-200 ease-[var(--ease-out)] hover:underline group-hover:translate-x-0.5"
                         >
                           <span>View hardware</span>
                           <span className="ml-1">&rarr;</span>
@@ -386,7 +386,7 @@ export function NtmsSaleorCatalogPage({
                       )}
                       <NtmsSaleorAddToCartButton
                         variantId={bento3.variantId}
-                        className="rounded-full bg-[#1d1d1f] px-4 py-1.5 text-xs font-semibold text-white shadow-sm transition-[transform,background-color] duration-160 ease-out hover:bg-[#333336] [@media(hover:hover)]:hover:scale-[1.03] active:scale-[0.97] motion-reduce:transition-none motion-reduce:transform-none"
+                        className="rounded-full bg-[#1d1d1f] px-4 py-1.5 text-xs font-semibold text-white shadow-sm transition-[transform,background-color] duration-160 ease-[var(--ease-out)] hover:bg-[#333336] [@media(hover:hover)]:hover:scale-[1.03] active:scale-[0.97] motion-reduce:transition-none motion-reduce:transform-none"
                       />
                     </div>
                   </div>
@@ -402,17 +402,17 @@ export function NtmsSaleorCatalogPage({
         <div className="mx-auto max-w-7xl px-6 lg:px-12">
           <div className="flex items-end justify-between">
             <div>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#86868b]">
-                Ecosystem
-              </p>
-              <h2 className="mt-2 text-3xl font-bold tracking-[-0.03em] text-[#1d1d1f] sm:text-4xl lg:text-5xl leading-[1.1]">
+              <h2 className="text-3xl font-bold tracking-[-0.03em] text-[#1d1d1f] sm:text-4xl lg:text-5xl leading-[1.1]">
                 Explore by Category.
               </h2>
+              <p className="mt-2 text-sm text-[#6e6e73]">
+                Curated studio equipment organized by discipline.
+              </p>
             </div>
             {enableLinks ? (
               <Link
                 to="/search"
-                className="hidden text-sm font-semibold text-[#0066cc] transition-colors hover:underline sm:inline-flex"
+                className="hidden text-sm font-semibold text-[#0071e3] transition-colors hover:underline sm:inline-flex"
               >
                 All categories &rarr;
               </Link>
@@ -423,14 +423,14 @@ export function NtmsSaleorCatalogPage({
             {categories.map((cat) => {
               const label = categoryDisplayNames.get(cat.name) || cat.name;
               const content = (
-                <div className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-black/[0.04] bg-[#ffffff] p-6 sm:p-7 shadow-[0_2px_12px_rgba(0,0,0,0.03)] transition-[transform,box-shadow] duration-240 ease-out [@media(hover:hover)]:hover:-translate-y-1 hover:shadow-[0_16px_36px_rgba(0,0,0,0.08)] motion-reduce:transition-none motion-reduce:transform-none">
+                <div className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-black/[0.05] bg-[#ffffff] p-6 sm:p-7 shadow-[0_2px_12px_rgba(0,0,0,0.03)] transition-[transform,box-shadow] duration-240 ease-[var(--ease-out)] [@media(hover:hover)]:hover:-translate-y-1 hover:shadow-[0_16px_36px_rgba(0,0,0,0.08)] motion-reduce:transition-none motion-reduce:transform-none">
                   {/* Square Image Stage */}
                   <div className="relative aspect-square w-full overflow-hidden rounded-2xl bg-[#fbfbfd] flex items-center justify-center p-6 transition-colors duration-300 group-hover:bg-[#f5f5f7]">
                     {cat.imageUrl ? (
                       <img
                         src={cat.imageUrl}
                         alt={cat.imageAlt || label}
-                        className="h-full w-full object-contain mix-blend-multiply scale-100 transition-transform duration-400 ease-out group-hover:scale-105 motion-reduce:transition-none motion-reduce:transform-none"
+                        className="h-full w-full object-contain mix-blend-multiply scale-100 transition-transform duration-400 ease-[var(--ease-out)] [@media(hover:hover)]:group-hover:scale-105 motion-reduce:transition-none motion-reduce:transform-none"
                         loading="lazy"
                         decoding="async"
                         onError={(e) => {
@@ -481,8 +481,8 @@ export function NtmsSaleorCatalogPage({
                           : "Professional series"}
                       </p>
                     </div>
-                    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#f5f5f7] text-[#1d1d1f] transition-[transform,background-color,color] duration-160 ease-out group-hover:bg-[#0071e3] group-hover:text-white [@media(hover:hover)]:group-hover:scale-[1.04] active:scale-[0.97] motion-reduce:transition-none motion-reduce:transform-none">
-                      <ChevronRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#f5f5f7] text-[#1d1d1f] transition-[transform,background-color,color] duration-160 ease-[var(--ease-out)] group-hover:bg-[#0071e3] group-hover:text-white [@media(hover:hover)]:group-hover:scale-[1.04] active:scale-[0.97] motion-reduce:transition-none motion-reduce:transform-none">
+                      <ChevronRight className="h-4 w-4 transition-transform duration-200 ease-[var(--ease-out)] group-hover:translate-x-0.5" />
                     </div>
                   </div>
                 </div>
@@ -494,7 +494,7 @@ export function NtmsSaleorCatalogPage({
                     key={cat.id}
                     to="/collections/$collection"
                     params={{ collection: cat.slug }}
-                    className="block outline-none focus-visible:ring-2 focus-visible:ring-[#0071e3]"
+                    className="block rounded-3xl outline-none focus-visible:ring-2 focus-visible:ring-[#0071e3]"
                   >
                     {content}
                   </Link>
@@ -513,17 +513,17 @@ export function NtmsSaleorCatalogPage({
           <div className="mx-auto max-w-7xl px-6 lg:px-12">
             <div className="flex items-end justify-between">
               <div>
-                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#86868b]">
-                  Precision Inventory
-                </p>
-                <h2 className="mt-2 text-3xl font-bold tracking-[-0.03em] text-[#1d1d1f] sm:text-4xl lg:text-5xl leading-[1.1]">
+                <h2 className="text-3xl font-bold tracking-[-0.03em] text-[#1d1d1f] sm:text-4xl lg:text-5xl leading-[1.1]">
                   Latest Hardware Releases.
                 </h2>
+                <p className="mt-2 text-sm text-[#6e6e73]">
+                  Ready-to-ship supplies verified for studio performance.
+                </p>
               </div>
               {enableLinks ? (
                 <Link
                   to="/search"
-                  className="text-sm font-semibold text-[#0066cc] transition-colors hover:underline"
+                  className="text-sm font-semibold text-[#0071e3] transition-colors hover:underline"
                 >
                   Browse all {catalog.totalProducts} items &rarr;
                 </Link>
@@ -547,7 +547,7 @@ export function NtmsSaleorCatalogPage({
       {/* 5. STUDIO PROMISE FOOTNOTE */}
       <section className="bg-[#fbfbfd] pb-24 pt-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-12">
-          <div className="rounded-3xl sm:rounded-[2.5rem] border border-black/[0.04] bg-[#ffffff] p-8 text-center shadow-[0_4px_24px_rgba(0,0,0,0.03)] sm:p-16">
+          <div className="rounded-3xl sm:rounded-[2.5rem] border border-black/[0.05] bg-[#ffffff] p-8 text-center shadow-[0_4px_24px_rgba(0,0,0,0.03)] sm:p-16">
             <h3 className="text-2xl font-bold tracking-[-0.025em] text-[#1d1d1f] sm:text-3xl lg:text-4xl">
               Equipping Professional Tattoo Artists Nationwide.
             </h3>
@@ -560,7 +560,7 @@ export function NtmsSaleorCatalogPage({
               {enableLinks ? (
                 <Link
                   to="/search"
-                  className="rounded-full bg-[#1d1d1f] px-7 py-3.5 text-sm font-semibold text-white shadow-sm transition-[transform,background-color] duration-160 ease-out hover:bg-[#333336] [@media(hover:hover)]:hover:scale-[1.02] active:scale-[0.97] motion-reduce:transition-none motion-reduce:transform-none"
+                  className="rounded-full bg-[#1d1d1f] px-7 py-3.5 text-sm font-semibold text-white shadow-sm transition-[transform,background-color] duration-160 ease-[var(--ease-out)] hover:bg-[#333336] [@media(hover:hover)]:hover:scale-[1.02] active:scale-[0.97] motion-reduce:transition-none motion-reduce:transform-none"
                 >
                   Open Studio Catalog
                 </Link>
@@ -581,8 +581,13 @@ export function SaleorProductCard({
   enableLinks?: boolean;
   priority?: boolean;
 }) {
+  const isConfigurable = product.variantCount > 1;
   const content = (
-    <article className="group relative flex h-full flex-col justify-between overflow-hidden rounded-2xl sm:rounded-3xl border border-black/[0.04] bg-[#ffffff] p-6 shadow-[0_2px_14px_rgba(0,0,0,0.03)] transition-[transform,box-shadow] duration-240 ease-out [@media(hover:hover)]:hover:-translate-y-1 hover:shadow-[0_16px_36px_rgba(0,0,0,0.08)] motion-reduce:transition-none motion-reduce:transform-none">
+    <article
+      data-saleor-product-card
+      data-saleor-variant-count={product.variantCount}
+      className="group relative flex h-full flex-col justify-between overflow-hidden rounded-2xl sm:rounded-3xl border border-black/[0.05] bg-[#ffffff] p-6 shadow-[0_2px_14px_rgba(0,0,0,0.03)] transition-[transform,box-shadow] duration-240 ease-[var(--ease-out)] [@media(hover:hover)]:hover:-translate-y-1 hover:shadow-[0_16px_36px_rgba(0,0,0,0.08)] motion-reduce:transition-none motion-reduce:transform-none"
+    >
       {/* Top Header: Category Tag & Price & Title */}
       <div className="relative z-10 flex flex-col">
         <div className="flex items-start justify-between gap-3">
@@ -604,7 +609,7 @@ export function SaleorProductCard({
       </div>
 
       {/* Product Image Stage: Centered flex canvas with standardized vertical alignment */}
-      <div className="relative my-4 flex min-h-[210px] flex-1 items-center justify-center overflow-hidden">
+      <div className="relative my-4 flex min-h-[210px] flex-1 items-center justify-center overflow-hidden p-2">
         {product.imageUrl ? (
           <img
             src={product.imageUrl}
@@ -627,7 +632,7 @@ export function SaleorProductCard({
                 target.src = fixed;
               }
             }}
-            className="max-h-[210px] w-full object-contain mix-blend-multiply scale-105 transition-transform duration-400 ease-out group-hover:scale-110 motion-reduce:transition-none motion-reduce:transform-none"
+            className="max-h-[200px] w-full object-contain mix-blend-multiply scale-100 transition-transform duration-300 ease-[var(--ease-out)] [@media(hover:hover)]:group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:transform-none"
           />
         ) : (
           <div className="flex h-36 w-36 items-center justify-center rounded-2xl bg-[#f5f5f7] text-xs text-[#86868b]">
@@ -638,13 +643,22 @@ export function SaleorProductCard({
 
       {/* Bottom Actions: Fixed baseline alignment across entire grid */}
       <div className="relative z-10 mt-auto flex items-center justify-between pt-2">
-        <span className="inline-flex items-center text-xs font-semibold text-[#0066cc] transition-transform duration-200 ease-out group-hover:translate-x-0.5">
+        <span className="inline-flex items-center text-xs font-semibold text-[#0071e3] transition-transform duration-200 ease-[var(--ease-out)] group-hover:translate-x-0.5">
           Explore hardware &rarr;
         </span>
-        <NtmsSaleorAddToCartButton
-          variantId={product.variantId}
-          className="rounded-full border border-black/10 bg-[#f5f5f7] px-3.5 py-1.5 text-xs font-semibold text-[#1d1d1f] shadow-none transition-[transform,background-color,color] duration-160 ease-out hover:border-black/20 hover:bg-[#1d1d1f] hover:text-white [@media(hover:hover)]:hover:scale-[1.03] active:scale-[0.97] motion-reduce:transition-none motion-reduce:transform-none"
-        />
+        {isConfigurable ? (
+          <span
+            data-saleor-choose-options
+            className="inline-flex h-8 shrink-0 items-center justify-center rounded-full border border-black/[0.08] bg-[#f5f5f7] px-3.5 text-xs font-semibold text-[#1d1d1f] transition-[background-color,color,border-color] duration-160 ease-[var(--ease-out)] group-hover:border-[#1d1d1f] group-hover:bg-[#1d1d1f] group-hover:text-white"
+          >
+            Choose options
+          </span>
+        ) : (
+          <NtmsSaleorAddToCartButton
+            variantId={product.variantId}
+            className="rounded-full border border-black/[0.08] bg-[#f5f5f7] px-3.5 py-1.5 text-xs font-semibold text-[#1d1d1f] shadow-none transition-[transform,background-color,color,border-color] duration-160 ease-[var(--ease-out)] hover:border-black/20 hover:bg-[#1d1d1f] hover:text-white [@media(hover:hover)]:hover:scale-[1.03] active:scale-[0.97] motion-reduce:transition-none motion-reduce:transform-none"
+          />
+        )}
       </div>
     </article>
   );
@@ -654,7 +668,7 @@ export function SaleorProductCard({
       <Link
         to="/product/$productId"
         params={{ productId: product.slug }}
-        className="block h-full outline-none focus-visible:ring-2 focus-visible:ring-[#0071e3]"
+        className="block h-full rounded-3xl outline-none focus-visible:ring-2 focus-visible:ring-[#0071e3]"
       >
         {content}
       </Link>
@@ -667,7 +681,6 @@ export function SaleorProductCard({
 function AppleCinemaHero({ enableLinks = false }: { enableLinks?: boolean }) {
   const [activeSlide, setActiveSlide] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
-  const [progress, setProgress] = useState(0);
   const slideDuration = 6500; // 6.5s per slide
 
   const current = CINEMA_SLIDES[activeSlide];
@@ -675,37 +688,25 @@ function AppleCinemaHero({ enableLinks = false }: { enableLinks?: boolean }) {
   useEffect(() => {
     if (!isPlaying) return;
 
-    const intervalStep = 50; // update every 50ms for smooth bar
-    const increment = (intervalStep / slideDuration) * 100;
+    const timer = setTimeout(() => {
+      setActiveSlide((activeSlide + 1) % CINEMA_SLIDES.length);
+    }, slideDuration);
 
-    const timer = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          setActiveSlide((curr) => (curr + 1) % CINEMA_SLIDES.length);
-          return 0;
-        }
-        return prev + increment;
-      });
-    }, intervalStep);
-
-    return () => clearInterval(timer);
-  }, [isPlaying]);
+    return () => clearTimeout(timer);
+  }, [activeSlide, isPlaying]);
 
   const handleSelectSlide = (index: number) => {
     setActiveSlide(index);
-    setProgress(0);
   };
 
   const handlePrev = () => {
     setActiveSlide(
       (curr) => (curr - 1 + CINEMA_SLIDES.length) % CINEMA_SLIDES.length,
     );
-    setProgress(0);
   };
 
   const handleNext = () => {
     setActiveSlide((curr) => (curr + 1) % CINEMA_SLIDES.length);
-    setProgress(0);
   };
 
   return (
@@ -720,7 +721,7 @@ function AppleCinemaHero({ enableLinks = false }: { enableLinks?: boolean }) {
           {CINEMA_SLIDES.map((slide, index) => {
             const isActive = index === activeSlide;
             const className = cn(
-              "absolute inset-0 block transition-opacity duration-700 ease-in-out cursor-pointer",
+              "absolute inset-0 block transition-opacity duration-500 ease-[var(--ease-out)] cursor-pointer",
               isActive
                 ? "opacity-100 z-10"
                 : "opacity-0 z-0 pointer-events-none",
@@ -758,7 +759,7 @@ function AppleCinemaHero({ enableLinks = false }: { enableLinks?: boolean }) {
               <Link
                 to={current.href}
                 params={current.params}
-                className="inline-flex items-center gap-2 rounded-full bg-[#0071e3] px-6 py-2.5 text-xs sm:px-7 sm:py-3 sm:text-sm font-semibold text-white shadow-[0_4px_24px_rgba(0,113,227,0.45)] transition-all duration-300 hover:scale-105 hover:bg-[#0077ed] active:scale-95"
+                className="inline-flex items-center gap-2 rounded-full bg-[#0071e3] px-6 py-2.5 text-xs sm:px-7 sm:py-3 sm:text-sm font-semibold text-white shadow-[0_4px_24px_rgba(0,113,227,0.45)] transition-[transform,background-color,box-shadow] duration-180 ease-[var(--ease-out)] [@media(hover:hover)]:hover:scale-[1.03] hover:bg-[#0077ed] active:scale-[0.97]"
               >
                 <span>Shop Now</span>
                 <ChevronRight className="h-4 w-4" />
@@ -766,7 +767,7 @@ function AppleCinemaHero({ enableLinks = false }: { enableLinks?: boolean }) {
             ) : (
               <button
                 type="button"
-                className="inline-flex items-center gap-2 rounded-full bg-[#0071e3] px-6 py-2.5 text-xs sm:px-7 sm:py-3 sm:text-sm font-semibold text-white shadow-[0_4px_24px_rgba(0,113,227,0.45)] transition-all hover:bg-[#0077ed]"
+                className="inline-flex items-center gap-2 rounded-full bg-[#0071e3] px-6 py-2.5 text-xs sm:px-7 sm:py-3 sm:text-sm font-semibold text-white shadow-[0_4px_24px_rgba(0,113,227,0.45)] transition-[transform,background-color] duration-180 ease-[var(--ease-out)] hover:bg-[#0077ed] active:scale-[0.97]"
               >
                 <span>Shop Now</span>
                 <ChevronRight className="h-4 w-4" />
@@ -781,7 +782,7 @@ function AppleCinemaHero({ enableLinks = false }: { enableLinks?: boolean }) {
             type="button"
             aria-label="Previous slide"
             onClick={handlePrev}
-            className="pointer-events-auto flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-xl transition-all duration-300 hover:bg-black/70 hover:scale-105 active:scale-95 border border-white/20 shadow-lg"
+            className="pointer-events-auto flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full border border-white/20 bg-black/40 text-white shadow-lg backdrop-blur-xl transition-[transform,background-color] duration-180 ease-[var(--ease-out)] hover:bg-black/70 [@media(hover:hover)]:hover:scale-[1.04] active:scale-[0.96]"
           >
             <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6" />
           </button>
@@ -789,7 +790,7 @@ function AppleCinemaHero({ enableLinks = false }: { enableLinks?: boolean }) {
             type="button"
             aria-label="Next slide"
             onClick={handleNext}
-            className="pointer-events-auto flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-xl transition-all duration-300 hover:bg-black/70 hover:scale-105 active:scale-95 border border-white/20 shadow-lg"
+            className="pointer-events-auto flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full border border-white/20 bg-black/40 text-white shadow-lg backdrop-blur-xl transition-[transform,background-color] duration-180 ease-[var(--ease-out)] hover:bg-black/70 [@media(hover:hover)]:hover:scale-[1.04] active:scale-[0.96]"
           >
             <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6" />
           </button>
@@ -809,7 +810,7 @@ function AppleCinemaHero({ enableLinks = false }: { enableLinks?: boolean }) {
                   type="button"
                   onClick={() => handleSelectSlide(idx)}
                   className={cn(
-                    "group relative flex flex-1 flex-col overflow-hidden rounded-xl px-3 py-2 text-left transition-all duration-300",
+                    "group relative flex flex-1 flex-col overflow-hidden rounded-xl px-3 py-2 text-left transition-[transform,background-color,color,border-color] duration-200 ease-[var(--ease-out)] active:scale-[0.98]",
                     isActive
                       ? "bg-white/[0.14] text-white backdrop-blur-md border border-white/20 shadow-sm"
                       : "bg-white/5 text-white/60 hover:bg-white/10 hover:text-white/90 border border-transparent",
@@ -824,24 +825,28 @@ function AppleCinemaHero({ enableLinks = false }: { enableLinks?: boolean }) {
                     </span>
                   </div>
 
-                  {/* Dynamic Progress Fill Line */}
+                  {/* GPU-Composited Progress Fill Line (transform: scaleX) */}
                   <div className="mt-2 h-0.5 w-full overflow-hidden rounded-full bg-white/10">
                     <div
+                      key={isActive ? `${slide.id}-active` : `${slide.id}-idle`}
                       className={cn(
-                        "h-full rounded-full transition-all duration-75",
+                        "h-full w-full origin-left rounded-full",
                         isActive
                           ? "bg-[#2997ff]"
                           : idx < activeSlide
-                            ? "bg-white/40"
-                            : "bg-transparent",
+                            ? "scale-x-100 bg-white/40"
+                            : "scale-x-0 bg-transparent",
                       )}
-                      style={{
-                        width: isActive
-                          ? `${progress}%`
-                          : idx < activeSlide
-                            ? "100%"
-                            : "0%",
-                      }}
+                      style={
+                        isActive
+                          ? {
+                              animation: `ntms-slide-progress ${slideDuration}ms linear forwards`,
+                              animationPlayState: isPlaying
+                                ? "running"
+                                : "paused",
+                            }
+                          : undefined
+                      }
                     />
                   </div>
                 </button>
@@ -857,7 +862,7 @@ function AppleCinemaHero({ enableLinks = false }: { enableLinks?: boolean }) {
                 isPlaying ? "Pause carousel autoplay" : "Play carousel autoplay"
               }
               onClick={() => setIsPlaying(!isPlaying)}
-              className="inline-flex h-8 items-center gap-1.5 rounded-full border border-white/15 bg-white/10 px-3 text-[11px] font-medium text-white/80 backdrop-blur-md transition-all hover:bg-white/20 hover:text-white"
+              className="inline-flex h-8 items-center gap-1.5 rounded-full border border-white/15 bg-white/10 px-3 text-[11px] font-medium text-white/80 backdrop-blur-md transition-[transform,background-color,color] duration-160 ease-[var(--ease-out)] hover:bg-white/20 hover:text-white active:scale-[0.97]"
             >
               {isPlaying ? (
                 <>

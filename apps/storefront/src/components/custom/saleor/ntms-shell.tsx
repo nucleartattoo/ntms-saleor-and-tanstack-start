@@ -187,7 +187,7 @@ function NtmsLogo() {
 }
 
 const appleHeaderIconButtonClass =
-  "relative flex h-9 w-9 items-center justify-center rounded-full bg-[#f5f5f7] text-[#1d1d1f] transition-[transform,background-color,color] duration-160 ease-out hover:bg-[#e8e8ed] [@media(hover:hover)]:hover:scale-[1.04] active:scale-[0.97] motion-reduce:transition-none motion-reduce:transform-none";
+  "relative flex h-9 w-9 items-center justify-center rounded-full bg-[#f5f5f7] text-[#1d1d1f] transition-[transform,background-color,color] duration-160 ease-[var(--ease-out)] hover:bg-[#e8e8ed] [@media(hover:hover)]:hover:scale-[1.04] active:scale-[0.97] motion-reduce:transition-none motion-reduce:transform-none";
 
 function NtmsHeaderActions({
   categories,
@@ -329,7 +329,7 @@ function NtmsSearchForm() {
           />
           <input
             aria-label="Search products"
-            className="h-9 w-full rounded-full bg-[#f5f5f7] pl-9 pr-4 text-xs font-medium text-[#1d1d1f] placeholder:text-[#86868b] outline-none transition-all focus:bg-white focus:ring-2 focus:ring-[#0071e3]/30 focus:shadow-[0_2px_12px_rgba(0,113,227,0.12)]"
+            className="h-9 w-full rounded-full bg-[#f5f5f7] pl-9 pr-4 text-xs font-medium text-[#1d1d1f] placeholder:text-[#86868b] outline-none transition-[background-color,box-shadow] duration-160 ease-[var(--ease-out)] focus:bg-white focus:ring-2 focus:ring-[#0071e3]/30 focus:shadow-[0_2px_12px_rgba(0,113,227,0.12)]"
             name="q"
             placeholder="Search needles, inks, machines..."
             type="search"
@@ -411,20 +411,10 @@ function NtmsSaleorFooter({
           </div>
         </div>
 
-        <div className="mt-12 border-t border-black/[0.06] pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] font-medium text-[#86868b]">
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-black/[0.06] pt-8 text-[11px] font-medium text-[#86868b] sm:flex-row">
           <p suppressHydrationWarning>
             &copy; {year} Nuclear Tattoo Supply Inc. All rights reserved.
           </p>
-
-          <div className="flex items-center gap-3">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-emerald-600 border border-emerald-500/20">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              <span>Apple Build v1.0.45-PROD</span>
-            </span>
-            <span className="text-[10px] text-[#86868b] font-mono">
-              Release 20260830-apple-1.0.45
-            </span>
-          </div>
 
           <div className="flex items-center gap-6">
             <span>Privacy Policy</span>

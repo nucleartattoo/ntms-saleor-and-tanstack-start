@@ -25,7 +25,9 @@ export function NtmsSaleorAddToCartButton({
     ? Math.max(1, Math.floor(quantity))
     : 1;
 
-  const handleAdd = async () => {
+  const handleAdd = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
     if (!variantId || !canAdd) return;
 
     try {
@@ -43,7 +45,7 @@ export function NtmsSaleorAddToCartButton({
     return (
       <Button
         className={cn(
-          "h-12 w-full gap-2 font-semibold transition-[transform,background-color,box-shadow] duration-160 ease-out active:scale-[0.97] [@media(hover:hover)]:hover:scale-[1.01] motion-reduce:transition-none motion-reduce:transform-none",
+          "h-12 w-full gap-2 font-semibold transition-[transform,background-color,box-shadow] duration-160 ease-[var(--ease-out)] active:scale-[0.97] [@media(hover:hover)]:hover:scale-[1.01] motion-reduce:transition-none motion-reduce:transform-none",
           className,
         )}
         data-saleor-add-to-cart-button
@@ -73,7 +75,7 @@ export function NtmsSaleorAddToCartButton({
       disabled={!canAdd || isMutating}
       onClick={handleAdd}
       className={cn(
-        "inline-flex h-8 shrink-0 items-center justify-center gap-1.5 rounded-full border border-black/[0.08] bg-[#f5f5f7] px-3.5 text-xs font-semibold text-[#1d1d1f] shadow-none transition-[transform,background-color,color,border-color] duration-160 ease-out hover:border-black/20 hover:bg-[#1d1d1f] hover:text-white [@media(hover:hover)]:hover:scale-[1.04] active:scale-[0.97] motion-reduce:transition-none motion-reduce:transform-none disabled:cursor-not-allowed disabled:opacity-60",
+        "inline-flex h-8 shrink-0 items-center justify-center gap-1.5 rounded-full border border-black/[0.08] bg-[#f5f5f7] px-3.5 text-xs font-semibold text-[#1d1d1f] shadow-none transition-[transform,background-color,color,border-color] duration-160 ease-[var(--ease-out)] hover:border-black/20 hover:bg-[#1d1d1f] hover:text-white [@media(hover:hover)]:hover:scale-[1.04] active:scale-[0.97] motion-reduce:transition-none motion-reduce:transform-none disabled:cursor-not-allowed disabled:opacity-60",
         className,
       )}
     >

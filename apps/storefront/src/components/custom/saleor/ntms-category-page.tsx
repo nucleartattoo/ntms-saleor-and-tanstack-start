@@ -53,11 +53,11 @@ export function NtmsSaleorCategoryPageView({
             data-saleor-category-result-range
           >
             {totalProducts > 0
-              ? `Displaying ${firstResult.toLocaleString()}–${lastResult.toLocaleString()} of ${totalProducts.toLocaleString()} items`
+              ? `Showing ${firstResult.toLocaleString()}-${lastResult.toLocaleString()} of ${totalProducts.toLocaleString()}`
               : "0 items"}
           </p>
 
-          <div className="flex items-center gap-2 overflow-x-auto">
+          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar">
             <span className="text-xs font-semibold text-[#86868b] mr-2">
               Sort:
             </span>
@@ -171,7 +171,7 @@ function AppleSubnavRibbon({
           aria-label="Previous categories"
           onClick={() => scrollByAmount(-320)}
           className={cn(
-            "flex h-9 w-9 items-center justify-center rounded-full border border-black/10 bg-white/90 text-[#1d1d1f] shadow-[0_4px_16px_rgba(0,0,0,0.08)] backdrop-blur-md transition-all hover:bg-white hover:scale-105 active:scale-95",
+            "flex h-9 w-9 items-center justify-center rounded-full border border-black/10 bg-white/90 text-[#1d1d1f] shadow-[0_4px_16px_rgba(0,0,0,0.08)] backdrop-blur-md transition-[transform,background-color] duration-180 ease-[var(--ease-out)] hover:bg-white [@media(hover:hover)]:hover:scale-105 active:scale-95",
             canScrollLeft ? "pointer-events-auto" : "pointer-events-none",
           )}
         >
@@ -210,7 +210,7 @@ function AppleSubnavRibbon({
           aria-label="Next categories"
           onClick={() => scrollByAmount(320)}
           className={cn(
-            "flex h-9 w-9 items-center justify-center rounded-full border border-black/10 bg-white/90 text-[#1d1d1f] shadow-[0_4px_16px_rgba(0,0,0,0.08)] backdrop-blur-md transition-all hover:bg-white hover:scale-105 active:scale-95",
+            "flex h-9 w-9 items-center justify-center rounded-full border border-black/10 bg-white/90 text-[#1d1d1f] shadow-[0_4px_16px_rgba(0,0,0,0.08)] backdrop-blur-md transition-[transform,background-color] duration-180 ease-[var(--ease-out)] hover:bg-white [@media(hover:hover)]:hover:scale-105 active:scale-95",
             canScrollRight ? "pointer-events-auto" : "pointer-events-none",
           )}
         >
@@ -245,7 +245,7 @@ function AppleCategorySubnavItem({
     >
       <div
         className={cn(
-          "flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center bg-transparent transition-all duration-300 group-hover:scale-105",
+          "flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center bg-transparent transition-[transform,opacity] duration-200 ease-[var(--ease-out)] [@media(hover:hover)]:group-hover:scale-105 group-active:scale-95",
           active
             ? "scale-105 opacity-100"
             : "opacity-85 group-hover:opacity-100",
@@ -404,7 +404,7 @@ function CategorySortLink({
       preload="intent"
       search={{ after: undefined, page: undefined, sort: item.slug }}
       className={[
-        "inline-flex h-8 items-center justify-center rounded-full px-3 text-[11px] font-semibold tracking-tight transition-all duration-300",
+        "inline-flex h-8 shrink-0 items-center justify-center rounded-full px-3 text-[11px] font-semibold tracking-tight transition-[transform,background-color,color,box-shadow] duration-160 ease-[var(--ease-out)] active:scale-[0.97]",
         active
           ? "bg-[#0071e3] text-white shadow-sm"
           : "bg-[#f5f5f7] text-[#6e6e73] hover:bg-[#e8e8ed] hover:text-[#1d1d1f]",

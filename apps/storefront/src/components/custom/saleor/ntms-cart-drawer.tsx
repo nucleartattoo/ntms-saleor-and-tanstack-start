@@ -80,7 +80,7 @@ export function NtmsSaleorCartDrawer() {
       <SheetContent
         side="right"
         showCloseButton={false}
-        overlayClassName="fixed inset-0 bg-black/40 backdrop-blur-md transition-all duration-300"
+        overlayClassName="fixed inset-0 bg-black/40 backdrop-blur-md transition-opacity duration-240 ease-[var(--ease-out)]"
         className="fixed bottom-0 right-0 top-0 z-50 flex h-full w-full flex-col gap-0 border-l border-black/[0.06] bg-[#fbfbfd] p-0 text-[#1d1d1f] shadow-2xl md:w-[480px] sm:max-w-none antialiased"
         data-saleor-cart-drawer
       >
@@ -140,8 +140,8 @@ export function NtmsSaleorCartDrawer() {
               </div>
               <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-black/[0.06]">
                 <div
-                  className="h-full rounded-full bg-[#0071e3] transition-all duration-500 ease-out"
-                  style={{ width: `${freeShippingProgress}%` }}
+                  className="h-full w-full origin-left rounded-full bg-[#0071e3] transition-transform duration-300 ease-[var(--ease-out)]"
+                  style={{ transform: `scaleX(${freeShippingProgress / 100})` }}
                 />
               </div>
             </div>
@@ -172,7 +172,7 @@ export function NtmsSaleorCartDrawer() {
             </p>
             <Button
               asChild
-              className="mt-8 rounded-full bg-[#0071e3] px-8 py-6 text-sm font-semibold text-white shadow-[0_4px_16px_rgba(0,113,227,0.25)] hover:bg-[#0077ed] hover:scale-105 transition-all"
+              className="mt-8 rounded-full bg-[#0071e3] px-8 py-6 text-sm font-semibold text-white shadow-[0_4px_16px_rgba(0,113,227,0.25)] hover:bg-[#0077ed] [@media(hover:hover)]:hover:scale-[1.02] active:scale-[0.97] transition-[transform,background-color,box-shadow] duration-160 ease-[var(--ease-out)]"
             >
               <Link to="/search" onClick={closeCart}>
                 Explore Hardware Catalog
@@ -184,7 +184,7 @@ export function NtmsSaleorCartDrawer() {
             <ul className="min-h-0 grow space-y-3.5 overflow-auto py-3 pr-1">
               {checkout.lines.map((line) => (
                 <li
-                  className="overflow-hidden rounded-3xl bg-white p-4 shadow-[0_2px_12px_rgba(0,0,0,0.03)] border border-black/[0.04] transition-all hover:shadow-[0_4px_20px_rgba(0,0,0,0.06)]"
+                  className="overflow-hidden rounded-3xl bg-white p-4 shadow-[0_2px_12px_rgba(0,0,0,0.03)] border border-black/[0.04] transition-shadow duration-200 hover:shadow-[0_4px_20px_rgba(0,0,0,0.06)]"
                   data-saleor-cart-line
                   key={line.id}
                 >

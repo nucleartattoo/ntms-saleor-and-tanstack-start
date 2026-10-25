@@ -61,7 +61,7 @@ export function NtmsSaleorSearchPageView({
                   className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-[#86868b]"
                 />
                 <input
-                  className="h-12 w-full rounded-full bg-[#f5f5f7] pl-11 pr-5 text-sm font-medium text-[#1d1d1f] placeholder:text-[#86868b] outline-none transition-all focus:bg-white focus:ring-2 focus:ring-[#0071e3]/30 focus:shadow-md"
+                  className="h-12 w-full rounded-full bg-[#f5f5f7] pl-11 pr-5 text-sm font-medium text-[#1d1d1f] placeholder:text-[#86868b] outline-none transition-[background-color,box-shadow] duration-180 ease-[var(--ease-out)] focus:bg-white focus:ring-2 focus:ring-[#0071e3]/30 focus:shadow-md"
                   defaultValue={page.query}
                   id={searchInputId}
                   name="q"
@@ -78,16 +78,20 @@ export function NtmsSaleorSearchPageView({
       <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         {/* Results Metadata & Sort */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-black/[0.04]">
-          <p
-            className="text-xs font-semibold uppercase tracking-wider text-[#86868b]"
-            data-saleor-search-result-range
-          >
-            {page.totalProducts > 0
-              ? `Found ${page.totalProducts.toLocaleString()} ${totalResultsLabel} (${firstResult.toLocaleString()}–${lastResult.toLocaleString()})`
-              : "0 items found"}
-          </p>
+          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#86868b]">
+            <p data-saleor-search-result-range>
+              {page.totalProducts > 0
+                ? `${firstResult.toLocaleString()}-${lastResult.toLocaleString()} shown`
+                : "0 shown"}
+            </p>
+            {page.totalProducts > 0 ? (
+              <span className="text-[#86868b]/75">
+                ({page.totalProducts.toLocaleString()} {totalResultsLabel})
+              </span>
+            ) : null}
+          </div>
 
-          <div className="flex items-center gap-2 overflow-x-auto">
+          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar">
             <span className="text-xs font-semibold text-[#86868b] mr-2">
               Sort:
             </span>
@@ -273,7 +277,7 @@ function SearchSortLink({
         sort: item.slug,
       }}
       className={[
-        "inline-flex h-8 items-center justify-center rounded-full px-3 text-[11px] font-semibold tracking-tight transition-all duration-300",
+        "inline-flex h-8 shrink-0 items-center justify-center rounded-full px-3 text-[11px] font-semibold tracking-tight transition-[transform,background-color,color,box-shadow] duration-160 ease-[var(--ease-out)] active:scale-[0.97]",
         active
           ? "bg-[#0071e3] text-white shadow-sm"
           : "bg-[#f5f5f7] text-[#6e6e73] hover:bg-[#e8e8ed] hover:text-[#1d1d1f]",

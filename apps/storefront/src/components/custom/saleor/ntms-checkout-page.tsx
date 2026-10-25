@@ -293,17 +293,18 @@ export function NtmsSaleorCheckoutPage() {
 
   if (isLoading && !checkout) {
     return (
-      <main className="min-h-screen bg-background px-4 py-10 text-foreground">
+      <main className="min-h-screen bg-[#f5f5f7] px-4 py-10 text-[#1d1d1f]">
         <div className="mx-auto max-w-screen-md">
           <Link
             to="/"
-            className="text-sm font-black uppercase text-foreground transition hover:text-[#0071e3]"
+            className="text-sm font-bold tracking-tight text-[#1d1d1f] transition-colors duration-160 hover:text-[#0071e3]"
           >
             Nuclear Tattoo Supply
           </Link>
-          <div className="mt-8 border border-black/10/12 bg-card p-8 text-center">
-            <p className="text-sm font-semibold text-foreground/58">
-              Loading checkout
+          <div className="mt-8 rounded-3xl border border-black/[0.06] bg-white p-10 text-center shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
+            <Loader2 className="mx-auto h-6 w-6 animate-spin text-[#0071e3]" />
+            <p className="mt-3 text-sm font-semibold text-[#6e6e73]">
+              Loading checkout...
             </p>
           </div>
         </div>
@@ -313,27 +314,36 @@ export function NtmsSaleorCheckoutPage() {
 
   if (!checkout || checkout.lines.length === 0) {
     return (
-      <main className="min-h-screen bg-background px-4 py-10 text-foreground">
+      <main className="min-h-screen bg-[#f5f5f7] px-4 py-10 text-[#1d1d1f]">
         <div className="mx-auto max-w-screen-md">
           <Link
             to="/"
-            className="text-sm font-black uppercase text-foreground transition hover:text-[#0071e3]"
+            className="text-sm font-bold tracking-tight text-[#1d1d1f] transition-colors duration-160 hover:text-[#0071e3]"
           >
             Nuclear Tattoo Supply
           </Link>
-          <div className="mt-8 border border-black/10/12 bg-card p-8 text-center">
-            <Package2 className="mx-auto h-9 w-9 text-[#0071e3]" />
-            <h1 className="mt-4 text-3xl font-semibold tracking-tight">
-              Your cart is empty
+          <div className="mt-8 rounded-3xl border border-black/[0.06] bg-white p-10 text-center shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
+            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-[#f5f5f7] text-[#0071e3]">
+              <Package2 className="h-7 w-7" />
+            </div>
+            <h1 className="mt-5 text-2xl font-bold tracking-tight text-[#1d1d1f] sm:text-3xl">
+              Your bag is empty
             </h1>
-            <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-foreground/58">
+            <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-[#6e6e73]">
               Add products before returning to checkout.
             </p>
             <div className="mt-6 flex justify-center gap-3">
-              <Button asChild>
+              <Button
+                asChild
+                className="rounded-full bg-[#0071e3] px-6 text-white hover:bg-[#0077ed]"
+              >
                 <Link to="/search">Search products</Link>
               </Button>
-              <Button asChild variant="outline">
+              <Button
+                asChild
+                variant="outline"
+                className="rounded-full border-black/[0.08] px-6 hover:bg-[#f5f5f7]"
+              >
                 <Link to="/">Catalog</Link>
               </Button>
             </div>
@@ -345,24 +355,24 @@ export function NtmsSaleorCheckoutPage() {
 
   return (
     <main
-      className="min-h-screen bg-[#f5f5f7] text-[#1d1d1f]"
+      className="min-h-screen bg-[#f5f5f7] text-[#1d1d1f] antialiased"
       data-saleor-checkout-page
     >
-      <header className="border-b border-black/5 bg-white/80 backdrop-blur-xl sticky top-0 z-30">
-        <div className="mx-auto flex max-w-screen-2xl flex-wrap items-center justify-between gap-4 px-4 py-4">
+      <header className="sticky top-0 z-30 border-b border-black/[0.06] bg-white/80 backdrop-blur-2xl saturate-150">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
           <Link
             to="/"
-            className="text-sm font-semibold uppercase tracking-[0.18em] text-foreground/68 transition hover:text-[#0071e3]"
+            className="text-sm font-bold tracking-tight text-[#1d1d1f] transition-colors duration-160 hover:text-[#0071e3]"
           >
             Nuclear Tattoo Supply
           </Link>
-          <span className="rounded-full border border-black/5 bg-[#f5f5f7] px-3.5 py-1 text-xs font-semibold tracking-tight text-[#0071e3]">
-            Checkout
+          <span className="rounded-full border border-black/[0.06] bg-[#f5f5f7] px-3.5 py-1 text-xs font-semibold tracking-tight text-[#1d1d1f]">
+            Secure Checkout
           </span>
         </div>
       </header>
 
-      <div className="mx-auto grid max-w-screen-2xl gap-6 px-4 py-6 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-start">
+      <div className="mx-auto grid max-w-7xl gap-6 px-4 py-8 sm:px-6 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-start lg:px-8">
         <div className="space-y-6">
           <section className="grid gap-3 sm:grid-cols-3">
             <CheckoutStepPill
@@ -389,17 +399,19 @@ export function NtmsSaleorCheckoutPage() {
             />
           </section>
 
-          <section className="overflow-hidden rounded-3xl border border-black/5 bg-white shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
-            <div className="border-b border-black/5 px-6 py-5 flex items-center justify-between">
-              <div className="flex items-center gap-2 text-[#0071e3]">
-                <MapPinned className="h-4 w-4" />
-                <p className="text-xs font-semibold uppercase tracking-[0.2em]">
-                  Contact and address
+          <section className="overflow-hidden rounded-3xl border border-black/[0.06] bg-white shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
+            <div className="flex items-center gap-3.5 border-b border-black/[0.06] px-6 py-5">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[#f5f5f7] text-[#0071e3]">
+                <MapPinned className="h-5 w-5" />
+              </span>
+              <div>
+                <h1 className="text-xl font-bold tracking-tight text-[#1d1d1f] sm:text-2xl">
+                  Delivery details
+                </h1>
+                <p className="text-xs text-[#6e6e73]">
+                  Contact information and studio shipping destination
                 </p>
               </div>
-              <h1 className="mt-2 text-3xl font-semibold tracking-tight">
-                Delivery details
-              </h1>
             </div>
 
             <form
@@ -411,7 +423,7 @@ export function NtmsSaleorCheckoutPage() {
             >
               {!isNtmsCheckoutAddressValid(addressErrors) ? (
                 <p
-                  className="mb-4 rounded-md border border-destructive/20 bg-destructive/10 p-3 text-sm leading-6 text-destructive"
+                  className="mb-4 rounded-2xl border border-destructive/20 bg-destructive/10 px-4 py-3 text-sm leading-6 text-destructive"
                   data-saleor-checkout-validation-error
                   role="alert"
                 >
@@ -420,7 +432,7 @@ export function NtmsSaleorCheckoutPage() {
               ) : null}
               {addressMutation.error ? (
                 <p
-                  className="mb-4 rounded-md border border-destructive/20 bg-destructive/10 p-3 text-sm leading-6 text-destructive"
+                  className="mb-4 rounded-2xl border border-destructive/20 bg-destructive/10 px-4 py-3 text-sm leading-6 text-destructive"
                   data-saleor-checkout-address-error
                   role="alert"
                 >
@@ -535,7 +547,7 @@ export function NtmsSaleorCheckoutPage() {
                       }
                       aria-invalid={Boolean(addressErrors.country)}
                       autoComplete="country"
-                      className="mt-2 h-10 w-full rounded-md border border-black/5 bg-[#f5f5f7] px-3 text-sm text-foreground focus:border-black/10/60 focus:outline-none focus:ring-2 focus:ring-[color:var(--apple-blue)]/35"
+                      className="mt-2 h-11 w-full rounded-xl border border-black/[0.06] bg-[#f5f5f7] px-3.5 text-sm text-[#1d1d1f] transition-[border-color,background-color,box-shadow] duration-160 ease-[var(--ease-out)] focus:border-[#0071e3] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#0071e3]/20"
                       id="country"
                       name="country"
                       onChange={handleChange("country")}
@@ -557,11 +569,12 @@ export function NtmsSaleorCheckoutPage() {
                 </Field>
               </FieldGroup>
 
-              <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-black/5 pt-5">
-                <p className="text-sm text-foreground/52">
+              <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-black/[0.06] pt-5">
+                <p className="text-xs font-medium text-[#6e6e73]">
                   Billing address will match delivery address.
                 </p>
                 <Button
+                  className="rounded-full bg-[#1d1d1f] px-6 text-white transition-[transform,background-color] duration-160 ease-[var(--ease-out)] hover:bg-[#333336] active:scale-[0.97]"
                   data-saleor-checkout-save-address
                   disabled={addressMutation.isPending}
                   type="submit"
@@ -619,24 +632,26 @@ function DeliverySection({
 }) {
   return (
     <section
-      className="overflow-hidden rounded-3xl border border-black/5 bg-white shadow-[0_4px_24px_rgba(0,0,0,0.04)]"
+      className="overflow-hidden rounded-3xl border border-black/[0.06] bg-white shadow-[0_4px_24px_rgba(0,0,0,0.04)]"
       data-saleor-checkout-shipping-section
     >
-      <div className="border-b border-black/5 px-6 py-5 flex items-center justify-between">
-        <div className="flex items-center gap-2 text-[#0071e3]">
-          <Truck className="h-4 w-4" />
-          <p className="text-xs font-semibold uppercase tracking-[0.2em]">
-            Delivery
+      <div className="flex items-center gap-3.5 border-b border-black/[0.06] px-6 py-5">
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[#f5f5f7] text-[#0071e3]">
+          <Truck className="h-5 w-5" />
+        </span>
+        <div>
+          <h2 className="text-xl font-bold tracking-tight text-[#1d1d1f] sm:text-2xl">
+            Shipping method
+          </h2>
+          <p className="text-xs text-[#6e6e73]">
+            Select dispatch speed for your studio order
           </p>
         </div>
-        <h2 className="mt-2 text-2xl font-semibold tracking-tight">
-          Shipping method
-        </h2>
       </div>
       <div className="space-y-3 p-6">
         {error ? (
           <p
-            className="rounded-md border border-destructive/20 bg-destructive/10 p-3 text-sm leading-6 text-destructive"
+            className="rounded-2xl border border-destructive/20 bg-destructive/10 px-4 py-3 text-sm leading-6 text-destructive"
             data-saleor-checkout-shipping-error
             role="alert"
           >
@@ -655,10 +670,10 @@ function DeliverySection({
             );
             return (
               <button
-                className={`w-full rounded-2xl border p-4 text-left transition ${
+                className={`w-full rounded-2xl border p-4 text-left transition-[transform,border-color,background-color,box-shadow] duration-160 ease-[var(--ease-out)] active:scale-[0.99] motion-reduce:transition-none motion-reduce:transform-none ${
                   selected
-                    ? "border-[#0071e3] bg-[#0071e3]/5 shadow-sm ring-1 ring-[#0071e3]"
-                    : "border-black/5 bg-[#f5f5f7]/60 hover:bg-[#f5f5f7] hover:border-black/10"
+                    ? "border-[#0071e3] bg-[#0071e3]/[0.04] shadow-[0_2px_10px_rgba(0,113,227,0.08)] ring-1 ring-[#0071e3]"
+                    : "border-black/[0.06] bg-[#f5f5f7]/60 hover:bg-[#f5f5f7] hover:border-black/[0.14]"
                 }`}
                 data-saleor-shipping-method-button
                 data-saleor-shipping-method-id={method.id}
@@ -674,24 +689,24 @@ function DeliverySection({
               >
                 <span className="flex items-start justify-between gap-4">
                   <span>
-                    <span className="block font-semibold text-foreground">
+                    <span className="block font-semibold text-[#1d1d1f]">
                       {method.name}
                     </span>
                     {method.description || method.message ? (
-                      <span className="mt-1 block text-sm text-foreground/55">
+                      <span className="mt-1 block text-xs text-[#6e6e73]">
                         {method.description || method.message}
                       </span>
                     ) : null}
                     {deliveryEstimate ? (
                       <span
-                        className="mt-1 block text-sm text-foreground/55"
+                        className="mt-1 block text-xs text-[#6e6e73]"
                         data-saleor-shipping-method-delivery
                       >
                         {deliveryEstimate}
                       </span>
                     ) : null}
                   </span>
-                  <span className="font-semibold text-[#0071e3]">
+                  <span className="font-bold text-[#1d1d1f]">
                     {formatSaleorMoney(method.price)}
                   </span>
                 </span>
@@ -699,7 +714,7 @@ function DeliverySection({
             );
           })
         ) : (
-          <p className="rounded-md border border-black/10/10 bg-background p-4 text-sm leading-6 text-foreground/56">
+          <p className="rounded-2xl border border-black/[0.06] bg-[#f5f5f7] p-4 text-sm leading-6 text-[#6e6e73]">
             Save a delivery address to load shipping methods.
           </p>
         )}
@@ -733,20 +748,20 @@ function PaymentSection({
 
   return (
     <section
-      className="overflow-hidden rounded-3xl border border-black/5 bg-white shadow-[0_4px_24px_rgba(0,0,0,0.04)]"
+      className="overflow-hidden rounded-3xl border border-black/[0.06] bg-white shadow-[0_4px_24px_rgba(0,0,0,0.04)]"
       data-saleor-blocked-payment-gateway-count={blockedGatewayCount}
       data-saleor-checkout-payment-section
     >
-      <div className="border-b border-black/5 px-6 py-5 flex items-center justify-between">
-        <div className="flex items-center gap-2 text-[#0071e3]">
-          <CreditCard className="h-4 w-4" />
-          <p className="text-xs font-semibold uppercase tracking-[0.2em]">
-            Payment
-          </p>
+      <div className="flex items-center gap-3.5 border-b border-black/[0.06] px-6 py-5">
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[#f5f5f7] text-[#0071e3]">
+          <CreditCard className="h-5 w-5" />
+        </span>
+        <div>
+          <h2 className="text-xl font-bold tracking-tight text-[#1d1d1f] sm:text-2xl">
+            Payment method
+          </h2>
+          <p className="text-xs text-[#6e6e73]">Encrypted payment processing</p>
         </div>
-        <h2 className="mt-2 text-2xl font-semibold tracking-tight">
-          Payment method
-        </h2>
       </div>
       <div className="space-y-3 p-6">
         {selectableGateways.length > 0 ? (
@@ -754,10 +769,10 @@ function PaymentSection({
             const selected = selectedGatewayId === gateway.id;
             return (
               <button
-                className={`w-full rounded-2xl border p-4 text-left transition ${
+                className={`w-full rounded-2xl border p-4 text-left transition-[transform,border-color,background-color,box-shadow] duration-160 ease-[var(--ease-out)] active:scale-[0.99] motion-reduce:transition-none motion-reduce:transform-none ${
                   selected
-                    ? "border-[#0071e3] bg-[#0071e3]/5 shadow-sm ring-1 ring-[#0071e3]"
-                    : "border-black/5 bg-[#f5f5f7]/60 hover:bg-[#f5f5f7] hover:border-black/10"
+                    ? "border-[#0071e3] bg-[#0071e3]/[0.04] shadow-[0_2px_10px_rgba(0,113,227,0.08)] ring-1 ring-[#0071e3]"
+                    : "border-black/[0.06] bg-[#f5f5f7]/60 hover:bg-[#f5f5f7] hover:border-black/[0.14]"
                 }`}
                 data-saleor-payment-gateway-button
                 data-saleor-payment-gateway-id={gateway.id}
@@ -775,14 +790,14 @@ function PaymentSection({
               >
                 <span className="flex items-start justify-between gap-4">
                   <span>
-                    <span className="block font-semibold text-foreground">
+                    <span className="block font-semibold text-[#1d1d1f]">
                       {gateway.name}
                     </span>
-                    <p className="mt-1 text-sm text-foreground/52">
+                    <p className="mt-1 text-xs text-[#6e6e73]">
                       {gateway.currencies.join(", ")}
                     </p>
                   </span>
-                  <span className="rounded-full border border-black/5 bg-white px-3 py-1 text-[11px] font-semibold tracking-tight text-[#0071e3]">
+                  <span className="rounded-full border border-black/[0.06] bg-white px-3 py-1 text-[11px] font-semibold tracking-tight text-[#0071e3]">
                     {gateway.supportLabel}
                   </span>
                 </span>
@@ -791,7 +806,7 @@ function PaymentSection({
           })
         ) : (
           <p
-            className="rounded-md border border-black/10/10 bg-background p-4 text-sm leading-6 text-foreground/56"
+            className="rounded-2xl border border-black/[0.06] bg-[#f5f5f7] p-4 text-sm leading-6 text-[#6e6e73]"
             data-saleor-payment-unavailable
             role="status"
           >
@@ -922,7 +937,7 @@ function StripePaymentPanel({
 
   if (!canUseStripeForm) {
     return (
-      <p className="rounded-md border border-black/10/10 bg-background p-4 text-sm leading-6 text-foreground/56">
+      <p className="rounded-2xl border border-black/[0.06] bg-[#f5f5f7] p-4 text-sm leading-6 text-[#6e6e73]">
         Save delivery details and select a shipping method before entering card
         details.
       </p>
@@ -956,7 +971,7 @@ function StripePaymentPanel({
     paymentSession.key !== paymentSessionKey
   ) {
     return (
-      <div className="rounded-md border border-black/10/10 bg-background p-4 text-sm font-semibold text-foreground/58">
+      <div className="rounded-2xl border border-black/[0.06] bg-[#f5f5f7] p-4 text-sm font-semibold text-[#6e6e73]">
         Initializing secure card form
       </div>
     );
@@ -1067,7 +1082,7 @@ function PayPalPaymentPanel({
 
   if (!canUsePayPalButtons) {
     return (
-      <p className="rounded-md border border-black/10/10 bg-background p-4 text-sm leading-6 text-foreground/56">
+      <p className="rounded-2xl border border-black/[0.06] bg-[#f5f5f7] p-4 text-sm leading-6 text-[#6e6e73]">
         Save delivery details and select a shipping method before using PayPal.
       </p>
     );
@@ -1100,7 +1115,7 @@ function PayPalPaymentPanel({
     paymentSession.key !== paymentSessionKey
   ) {
     return (
-      <div className="rounded-md border border-black/10/10 bg-background p-4 text-sm font-semibold text-foreground/58">
+      <div className="rounded-2xl border border-black/[0.06] bg-[#f5f5f7] p-4 text-sm font-semibold text-[#6e6e73]">
         Initializing PayPal Checkout
       </div>
     );
@@ -1276,7 +1291,7 @@ function SaleorPayPalButtons({
 
   return (
     <div
-      className="rounded-md border border-black/10/12 bg-background p-4"
+      className="rounded-2xl border border-black/[0.06] bg-[#f5f5f7] p-4"
       data-saleor-paypal-payment-panel
       data-saleor-paypal-payment-ready={
         !isLoading && !paymentError ? "true" : "false"
@@ -1284,28 +1299,28 @@ function SaleorPayPalButtons({
     >
       <div className={isApproving ? "pointer-events-none opacity-50" : ""}>
         {isLoading ? (
-          <div className="mb-3 rounded-md border border-black/5 bg-white shadow-[0_2px_12px_rgba(0,0,0,0.03)] p-3 text-sm font-semibold text-foreground/58">
+          <div className="mb-3 rounded-xl border border-black/[0.06] bg-white p-3 text-sm font-semibold text-[#6e6e73] shadow-[0_2px_12px_rgba(0,0,0,0.03)]">
             Loading PayPal Checkout
           </div>
         ) : null}
         <div ref={containerRef} />
       </div>
       {isApproving ? (
-        <div className="mt-3 flex items-center gap-2 rounded-md border border-black/5 bg-white shadow-[0_2px_12px_rgba(0,0,0,0.03)] p-3 text-sm font-semibold text-foreground/58">
+        <div className="mt-3 flex items-center gap-2 rounded-xl border border-black/[0.06] bg-white p-3 text-sm font-semibold text-[#6e6e73] shadow-[0_2px_12px_rgba(0,0,0,0.03)]">
           <Loader2 className="h-4 w-4 animate-spin" />
           Capturing PayPal payment
         </div>
       ) : null}
       {paymentError ? (
         <p
-          className="mt-3 rounded-md border border-destructive/20 bg-destructive/10 p-3 text-sm leading-6 text-destructive"
+          className="mt-3 rounded-xl border border-destructive/20 bg-destructive/10 p-3 text-sm leading-6 text-destructive"
           data-saleor-paypal-payment-error
           role="alert"
         >
           {paymentError}
         </p>
       ) : null}
-      <p className="mt-3 text-xs leading-5 text-foreground/45">
+      <p className="mt-3 text-xs leading-5 text-[#86868b]">
         PayPal opens a secure approval window and returns to Nuclear Tattoo
         Supply to place the order.
       </p>
@@ -1336,13 +1351,13 @@ function StripeElementsForm({
     () => ({
       amount: paymentSession.amount,
       appearance: {
-        theme: "night",
+        theme: "stripe",
         variables: {
-          colorPrimary: "#f5b51b",
-          colorBackground: "#101010",
-          colorText: "#f6f0df",
-          colorDanger: "#ff6b6b",
-          borderRadius: "8px",
+          colorPrimary: "#0071e3",
+          colorBackground: "#f5f5f7",
+          colorText: "#1d1d1f",
+          colorDanger: "#ff3b30",
+          borderRadius: "12px",
         },
       },
       currency: paymentSession.currency,
@@ -1379,7 +1394,7 @@ function LegacyStripePaymentPanel({
 
   if (!canUseStripeForm) {
     return (
-      <p className="rounded-md border border-black/10/10 bg-background p-4 text-sm leading-6 text-foreground/56">
+      <p className="rounded-2xl border border-black/[0.06] bg-[#f5f5f7] p-4 text-sm leading-6 text-[#6e6e73]">
         Save delivery details and select a shipping method before entering card
         details.
       </p>
@@ -1388,7 +1403,7 @@ function LegacyStripePaymentPanel({
 
   if (!publishableKey) {
     return (
-      <p className="rounded-md border border-black/10/10 bg-background p-4 text-sm leading-6 text-foreground/56">
+      <p className="rounded-2xl border border-black/[0.06] bg-[#f5f5f7] p-4 text-sm leading-6 text-[#6e6e73]">
         Stripe is enabled, but the public key is missing.
       </p>
     );
@@ -1527,15 +1542,15 @@ function LegacyStripeCardForm({
 
   return (
     <form
-      className="rounded-md border border-black/10/12 bg-background p-4"
+      className="rounded-2xl border border-black/[0.06] bg-[#f5f5f7] p-4"
       data-saleor-legacy-stripe-payment-form
       onSubmit={handleSubmit}
     >
-      <div className="rounded-md border border-black/10/12 bg-card p-3">
+      <div className="rounded-xl border border-black/[0.06] bg-white p-3.5">
         <CardElement options={legacyStripeCardElementOptions} />
       </div>
       <Button
-        className="mt-4 h-11 w-full gap-2 font-semibold"
+        className="mt-4 h-11 w-full gap-2 rounded-full bg-[#0071e3] font-semibold text-white transition-[transform,background-color] duration-160 ease-[var(--ease-out)] hover:bg-[#0077ed] active:scale-[0.98]"
         disabled={!stripe || !elements || completeMutation.isPending}
         type="submit"
       >
@@ -1702,13 +1717,13 @@ function StripeCardForm({
 
   return (
     <form
-      className="rounded-md border border-black/10/12 bg-background p-4"
+      className="rounded-2xl border border-black/[0.06] bg-[#f5f5f7] p-4"
       data-saleor-stripe-payment-form
       onSubmit={handleSubmit}
     >
       <PaymentElement options={stripePaymentElementOptions} />
       <Button
-        className="mt-4 h-11 w-full gap-2 font-semibold"
+        className="mt-4 h-11 w-full gap-2 rounded-full bg-[#0071e3] font-semibold text-white transition-[transform,background-color] duration-160 ease-[var(--ease-out)] hover:bg-[#0077ed] active:scale-[0.98]"
         disabled={!stripe || !elements || isSubmitting}
         type="submit"
       >
@@ -1776,13 +1791,13 @@ function PaymentInitializationError({
 }) {
   return (
     <div
-      className="rounded-md border border-destructive/20 bg-destructive/10 p-4"
+      className="rounded-2xl border border-destructive/20 bg-destructive/10 p-4"
       data-saleor-payment-initialization-error
       role="alert"
     >
-      <p className="text-sm leading-6 text-foreground/76">{message}</p>
+      <p className="text-sm leading-6 text-[#1d1d1f]/80">{message}</p>
       <Button
-        className="mt-3 gap-2"
+        className="mt-3 gap-2 rounded-full"
         data-saleor-retry-payment-initialization
         onClick={onRetry}
         type="button"
@@ -1811,19 +1826,19 @@ function CheckoutSummary({
   requiresPaymentPanel: boolean;
 }) {
   return (
-    <aside className="sticky top-6 overflow-hidden rounded-3xl border border-black/5 bg-white shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
-      <div className="border-b border-black/5 px-6 py-5 flex items-center justify-between">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#0071e3]">
+    <aside className="sticky top-20 overflow-hidden rounded-3xl border border-black/[0.06] bg-white shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
+      <div className="flex items-center justify-between border-b border-black/[0.06] px-6 py-5">
+        <p className="text-base font-bold tracking-tight text-[#1d1d1f]">
           Order summary
         </p>
-        <h2 className="mt-2 text-2xl font-semibold tracking-tight">
+        <h2 className="rounded-full bg-[#f5f5f7] px-3 py-1 text-xs font-semibold tracking-tight text-[#6e6e73]">
           {checkout.quantity} item{checkout.quantity === 1 ? "" : "s"}
         </h2>
       </div>
       <ul className="max-h-[42vh] space-y-3 overflow-auto p-6">
         {checkout.lines.map((line) => (
-          <li className="flex gap-3" key={line.id}>
-            <div className="h-16 w-16 shrink-0 overflow-hidden rounded-2xl border border-black/5 bg-[#f5f5f7]">
+          <li className="flex gap-3.5" key={line.id}>
+            <div className="h-16 w-16 shrink-0 overflow-hidden rounded-2xl border border-black/[0.06] bg-[#f5f5f7]">
               {line.imageUrl ? (
                 <img
                   alt={line.imageAlt}
@@ -1833,20 +1848,18 @@ function CheckoutSummary({
               ) : null}
             </div>
             <div className="min-w-0 flex-1">
-              <p className="line-clamp-2 text-sm font-semibold">
+              <p className="line-clamp-2 text-sm font-semibold text-[#1d1d1f]">
                 {line.productName}
               </p>
-              <p className="mt-1 text-xs text-foreground/45">
-                Qty {line.quantity}
-              </p>
+              <p className="mt-1 text-xs text-[#86868b]">Qty {line.quantity}</p>
             </div>
-            <p className="shrink-0 text-sm font-semibold text-[#0071e3]">
+            <p className="shrink-0 text-sm font-bold text-[#1d1d1f]">
               {formatSaleorMoney(line.totalPrice)}
             </p>
           </li>
         ))}
       </ul>
-      <div className="border-t border-black/5 p-6">
+      <div className="border-t border-black/[0.06] p-6">
         <div className="mb-5">
           <NtmsSaleorPromoCode />
         </div>
@@ -1866,15 +1879,15 @@ function CheckoutSummary({
           />
         ) : null}
         <SummaryRow label="Shipping" price={checkout.shippingPrice} />
-        <div className="mt-3 flex items-center justify-between border-t border-black/5 pt-4">
-          <p className="font-semibold">Total</p>
-          <p className="text-2xl font-semibold text-[#0071e3]">
+        <div className="mt-3 flex items-center justify-between border-t border-black/[0.06] pt-4">
+          <p className="font-semibold text-[#1d1d1f]">Total</p>
+          <p className="text-2xl font-bold tracking-tight text-[#1d1d1f]">
             {formatSaleorMoney(checkout.totalPrice)}
           </p>
         </div>
         <Button
           aria-busy={isPlacingOrder}
-          className="mt-5 h-12 w-full rounded-full bg-[#0071e3] text-white hover:bg-[#0077ed] shadow-md hover:shadow-lg font-medium text-base gap-2 transition"
+          className="mt-5 h-12 w-full gap-2 rounded-full bg-[#0071e3] text-base font-semibold text-white shadow-[0_4px_14px_rgba(0,113,227,0.28)] transition-[transform,background-color,box-shadow] duration-160 ease-[var(--ease-out)] hover:bg-[#0077ed] hover:shadow-[0_6px_20px_rgba(0,113,227,0.36)] active:scale-[0.98]"
           data-saleor-place-order-button
           disabled={!canPlaceOrder || isPlacingOrder}
           onClick={onPlaceOrder}
@@ -1889,7 +1902,7 @@ function CheckoutSummary({
         </Button>
         {error ? (
           <p
-            className="mt-3 rounded-md border border-destructive/20 bg-destructive/10 p-3 text-sm leading-6 text-destructive"
+            className="mt-3 rounded-2xl border border-destructive/20 bg-destructive/10 p-3 text-sm leading-6 text-destructive"
             data-saleor-checkout-completion-error
             role="alert"
           >
@@ -1900,7 +1913,7 @@ function CheckoutSummary({
           </p>
         ) : null}
         {!canPlaceOrder ? (
-          <p className="mt-3 text-xs leading-5 text-foreground/45">
+          <p className="mt-3 text-xs leading-5 text-[#86868b]">
             {requiresPaymentPanel
               ? "Complete the selected payment method above to place the order."
               : !checkout.shippingAddress || !checkout.selectedShippingMethod
@@ -1908,7 +1921,7 @@ function CheckoutSummary({
                 : "Select a payment method before placing the order."}
           </p>
         ) : (
-          <p className="mt-3 text-xs leading-5 text-foreground/45">
+          <p className="mt-3 text-xs leading-5 text-[#86868b]">
             Payment will be handled by the configured Saleor gateway.
           </p>
         )}
@@ -1929,16 +1942,17 @@ const legacyStripeCardElementOptions = {
   style: {
     base: {
       "::placeholder": {
-        color: "rgba(246, 240, 223, 0.42)",
+        color: "#86868b",
       },
-      color: "#f6f0df",
-      fontFamily: "Inter, system-ui, sans-serif",
+      color: "#1d1d1f",
+      fontFamily:
+        '-apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", system-ui, sans-serif',
       fontSize: "16px",
-      iconColor: "#f5b51b",
+      iconColor: "#0071e3",
     },
     invalid: {
-      color: "#ff6b6b",
-      iconColor: "#ff6b6b",
+      color: "#ff3b30",
+      iconColor: "#ff3b30",
     },
   },
 };
@@ -1963,19 +1977,19 @@ function CheckoutStepPill({
 }) {
   return (
     <div
-      className={`rounded-2xl border p-4 ${
+      className={`rounded-2xl border p-4 transition-[border-color,background-color,box-shadow] duration-200 ${
         active
-          ? "border-[#0071e3]/30 bg-[#0071e3]/5 shadow-sm"
-          : "border-black/5 bg-white shadow-[0_2px_12px_rgba(0,0,0,0.03)]"
+          ? "border-[#0071e3]/30 bg-[#0071e3]/[0.04] shadow-[0_2px_10px_rgba(0,113,227,0.06)]"
+          : "border-black/[0.06] bg-white shadow-[0_2px_12px_rgba(0,0,0,0.03)]"
       }`}
     >
       <div className="flex items-center gap-2 text-[#0071e3]">
         {icon}
-        <p className="text-[11px] font-semibold uppercase tracking-[0.18em]">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.16em]">
           {label}
         </p>
       </div>
-      <p className="mt-2 line-clamp-1 text-sm font-semibold text-foreground">
+      <p className="mt-2 line-clamp-1 text-sm font-semibold text-[#1d1d1f]">
         {value}
       </p>
     </div>
@@ -2001,7 +2015,7 @@ function CheckoutInput({
         {...props}
         aria-describedby={error ? errorId : props["aria-describedby"]}
         aria-invalid={Boolean(error)}
-        className="mt-2 h-11 rounded-xl border-black/5 bg-[#f5f5f7] text-[#1d1d1f] focus:border-[#0071e3] focus:ring-2 focus:ring-[#0071e3]/20"
+        className="mt-2 h-11 rounded-xl border-black/[0.08] bg-[#f5f5f7] text-[#1d1d1f] transition-[background-color,border-color,box-shadow] duration-160 focus:border-[#0071e3] focus:bg-white focus:ring-2 focus:ring-[#0071e3]/20"
         id={inputId}
       />
       {error ? (
@@ -2023,9 +2037,15 @@ function SummaryRow({
   price: { amount: number; currency: string };
 }) {
   return (
-    <div className="mb-2 flex items-center justify-between text-sm text-foreground/58">
+    <div className="mb-2 flex items-center justify-between text-sm text-[#6e6e73]">
       <p>{label}</p>
-      <p className={discount ? "font-semibold text-emerald-300" : undefined}>
+      <p
+        className={
+          discount
+            ? "font-semibold text-emerald-600"
+            : "font-medium text-[#1d1d1f]"
+        }
+      >
         {discount ? "-" : ""}
         {formatSaleorMoney(price)}
       </p>

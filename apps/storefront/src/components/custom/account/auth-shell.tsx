@@ -46,7 +46,7 @@ export function AuthShell({
                 data-testid="storefront-version"
               >
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                <span>Apple Build {buildVersion}</span>
+                <span>Storefront {buildVersion}</span>
               </div>
             ) : null}
           </div>
@@ -90,7 +90,7 @@ function AuthTabLink({
       to={to}
       aria-current={active ? "page" : undefined}
       className={cn(
-        "flex h-9 items-center justify-center rounded-full text-xs font-semibold transition-all duration-200",
+        "flex h-9 items-center justify-center rounded-full text-xs font-semibold transition-[background-color,color,box-shadow,transform] duration-160 ease-[var(--ease-out)] active:scale-[0.98]",
         active
           ? "bg-white text-[#1d1d1f] shadow-sm"
           : "text-[#86868b] hover:text-[#1d1d1f]",

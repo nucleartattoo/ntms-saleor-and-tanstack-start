@@ -196,7 +196,7 @@ export function NtmsSaleorVariantSelector({
                     aria-label={`Select ${group.name}: ${value.name}`}
                     aria-pressed={selected}
                     className={clsx(
-                      "min-h-11 rounded-xl px-4 py-2 text-left text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0071e3]/40 disabled:cursor-not-allowed disabled:opacity-30",
+                      "min-h-11 rounded-xl px-4 py-2 text-left text-sm font-medium transition-[transform,border-color,background-color,box-shadow] duration-160 ease-[var(--ease-out)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0071e3]/40 disabled:cursor-not-allowed disabled:opacity-30",
                       {
                         "border-2 border-[#0071e3] bg-white text-[#1d1d1f] shadow-sm":
                           selected,
